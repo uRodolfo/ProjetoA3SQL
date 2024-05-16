@@ -8,6 +8,7 @@ public class Conexao {
     public static void conectar() {
         Connection conexao = null;
         try {
+            System.out.println("deu certo..?");
             Class.forName("com.mysql.cj.jdbc.Driver");
             String nomeBanco = System.getProperty("standard"); 
             conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + nomeBanco, "root", "root");
