@@ -1,4 +1,4 @@
-package projetodb;
+package projetodb.projetoa3sql.Cadastro;
 
 public class Amigos {
     private String nome;
