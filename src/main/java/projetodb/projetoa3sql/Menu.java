@@ -12,18 +12,18 @@ public class Menu {
         int escolha = -1;
 
         do {
-            System.out.println("Escolha uma opção:");
+            System.out.println("Escolha uma opcao:");
             System.out.println("1. Adicionar ferramenta");
             System.out.println("2. Adicionar amigo");
             System.out.println("3. Ver itens");
             System.out.println("0. Sair");
-            System.out.print("Opção: ");
+            System.out.print("Opcao: ");
 
             if (scanner.hasNextInt()) {
                 escolha = scanner.nextInt();
                 scanner.nextLine(); // Limpa o buffer
             } else {
-                System.out.println("Opção inválida! Por favor, escolha um número.");
+                System.out.println("Opcao invalida! Por favor, escolha um numero.");
                 scanner.next(); // Consome a entrada inválida
                 continue;
             }
@@ -46,7 +46,7 @@ public class Menu {
                     System.out.println("Encerrando o programa...");
                     break;
                 default:
-                    System.out.println("Opção inválida! Por favor, escolha novamente.");
+                    System.out.println("Opcao invalida! Por favor, escolha novamente.");
             }
         } while (escolha != 0);
 
@@ -67,9 +67,9 @@ public class Menu {
         String nome = scanner.nextLine();
         System.out.println("Digite a marca da ferramenta:");
         String marca = scanner.nextLine();
-        System.out.println("Digite o custo de aquisição da ferramenta:");
+        System.out.println("Digite o custo de aquisicao da ferramenta:");
         while (!scanner.hasNextDouble()) {
-            System.out.println("Entrada inválida! Digite um número para o custo de aquisição:");
+            System.out.println("Entrada invalida! Digite um numero para o custo de aquisicao:");
             scanner.next(); // Consome a entrada inválida
         }
         double custo = scanner.nextDouble();
