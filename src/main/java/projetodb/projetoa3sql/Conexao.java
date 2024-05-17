@@ -4,6 +4,7 @@ import projetodb.projetoa3sql.Cadastro.Amigos;
 import projetodb.projetoa3sql.Cadastro.Ferramentas;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Conexao {
@@ -25,6 +26,34 @@ public class Conexao {
             pstmt.setDouble(3, ferramenta.getCustoDeAquisicao());
             pstmt.executeUpdate();
             System.out.println("Ferramenta inserida na tabela Ferramentas: " + ferramenta.getNome());
+        }
+    }
+
+    public static void verItens(Connection conexao) throws SQLException {
+        String sqlAmigos = "SELECT * FROM Amigos";
+        String sqlFerramentas = "SELECT * FROM Ferramentas";
+
+        try (PreparedStatement pstmtAmigos = conexao.prepareStatement(sqlAmigos);
+             PreparedStatement pstmtFerramentas = conexao.prepareStatement(sqlFerramentas)) {
+
+            System.out.println("Amigos:");
+            try (ResultSet rs = pstmtAmigos.executeQuery()) {
+                while (rs.next()) {
+                    String nome = rs.getString("nome");
+                    String telefone = rs.getString("telefone");
+                    System.out.println("Nome: " + nome + ", Telefone: " + telefone);
+                }
+            }
+
+            System.out.println("\nFerramentas:");
+            try (ResultSet rs = pstmtFerramentas.executeQuery()) {
+                while (rs.next()) {
+                    String nome = rs.getString("nome");
+                    String marca = rs.getString("marca");
+                    double custoDeAquisicao = rs.getDouble("custoDeAquisicao");
+                    System.out.println("Nome: " + nome + ", Marca: " + marca + ", Custo de Aquisição: " + custoDeAquisicao);
+                }
+            }
         }
     }
 }

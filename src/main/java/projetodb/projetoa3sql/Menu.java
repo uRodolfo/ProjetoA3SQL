@@ -15,6 +15,7 @@ public class Menu {
             System.out.println("Escolha uma opção:");
             System.out.println("1. Adicionar ferramenta");
             System.out.println("2. Adicionar amigo");
+            System.out.println("3. Ver itens");
             System.out.println("0. Sair");
             System.out.print("Opção: ");
 
@@ -33,6 +34,13 @@ public class Menu {
                     break;
                 case 2:
                     adicionarAmigo(scanner, conexao);
+                    break;
+                case 3:
+                    try {
+                        Conexao.verItens(conexao);
+                    } catch (SQLException ex) {
+                        System.out.println("Erro ao recuperar itens: " + ex.getMessage());
+                    }
                     break;
                 case 0:
                     System.out.println("Encerrando o programa...");
