@@ -1,10 +1,4 @@
-
 package projetodb.projetoa3sql.Cadastro;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Ferramentas {
     private String nome;
@@ -44,7 +38,4 @@ public class Ferramentas {
     public void setCustoDeAquisicao(double custoDeAquisicao) {
         this.custoDeAquisicao = custoDeAquisicao;
     }
-
-    // Método para inserir uma ferramenta no banco de dados
-
 }
