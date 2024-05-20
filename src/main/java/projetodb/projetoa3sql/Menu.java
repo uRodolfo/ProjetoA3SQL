@@ -3,8 +3,8 @@ package projetodb.projetoa3sql;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
-import projetodb.projetoa3sql.Cadastro.Amigos;
-import projetodb.projetoa3sql.Cadastro.Ferramentas;
+import Models.Amigos;
+import Models.Ferramentas;
 
 public class Menu {
     public static void exibirMenu(Connection conexao) {
@@ -79,12 +79,14 @@ public class Menu {
     }
 
     private static void adicionarAmigo(Scanner scanner, Connection conexao) {
+        System.out.println("Digite o ID do amigo:");
+        int id = scanner.nextInt();
         System.out.println("Digite o nome do amigo:");
         String nome = scanner.nextLine();
         System.out.println("Digite o telefone do amigo:");
         String telefone = scanner.nextLine();
 
-        Amigos amigo = new Amigos(nome, telefone);
+        Amigos amigo = new Amigos(id, nome, telefone);
         try {
             Conexao.inserirAmigo(conexao, amigo);
         } catch (SQLException ex) {
