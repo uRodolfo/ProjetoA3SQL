@@ -40,6 +40,13 @@ public class registroEmprestimo extends javax.swing.JFrame {
         itemAmigoDevolucao = new javax.swing.JComboBox<>();
         itemFerramentaDevolucao = new javax.swing.JComboBox<>();
         buttonRegistrarDevolucao = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuCadastrar = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema de Empréstimo de Ferramentas");
@@ -161,6 +168,37 @@ public class registroEmprestimo extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        menuCadastrar.setText("Cadastrar");
+
+        jMenuItem1.setText("Amigos");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuCadastrar.add(jMenuItem1);
+
+        jMenuItem2.setText("Ferramentas");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        menuCadastrar.add(jMenuItem2);
+
+        jMenuBar1.add(menuCadastrar);
+
+        jMenu2.setText("Gerenciar");
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Relatórios");
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Mais");
+        jMenuBar1.add(jMenu4);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,7 +217,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         pack();
@@ -204,6 +242,14 @@ public class registroEmprestimo extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Devolução registrada com sucesso!");
         
     }//GEN-LAST:event_buttonRegistrarDevolucaoActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,7 +297,14 @@ public class registroEmprestimo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JMenu menuCadastrar;
     // End of variables declaration//GEN-END:variables
 }
