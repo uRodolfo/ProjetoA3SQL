@@ -17,7 +17,7 @@ public class ProjetoA3SQL {
         Connection conexao = null;
         try {
             conexao = getConnection();
-            System.out.println("Conexão bem-sucedida ao banco de dados");
+            System.out.println("Conexao bem-sucedida ao banco de dados");
             Menu.exibirMenu(conexao);
         } catch (SQLException ex) {
             System.out.println("Erro ao conectar ao banco de dados: " + ex.getMessage());
@@ -26,7 +26,7 @@ public class ProjetoA3SQL {
                 try {
                     conexao.close();
                 } catch (SQLException ex) {
-                    System.out.println("Erro ao fechar a conexão: " + ex.getMessage());
+                    System.out.println("Erro ao fechar a conexao: " + ex.getMessage());
                 }
             }
         }
