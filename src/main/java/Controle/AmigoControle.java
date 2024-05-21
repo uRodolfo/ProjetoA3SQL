@@ -1,17 +1,17 @@
-package Controller;
+package Controle;
 
 import DAO.AmigosDAO;
-import Models.Amigos;
+import Modelo.Amigos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public class AmigoController {
+public class AmigoControle {
     private AmigosDAO amigoDAO;
 
-    public AmigoController() {
+    public AmigoControle() {
         try {
             Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/a3", "root", "root");
             amigoDAO = new AmigosDAO(conexao);

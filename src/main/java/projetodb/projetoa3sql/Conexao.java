@@ -1,7 +1,7 @@
 package projetodb.projetoa3sql;
 
-import Models.Amigos;
-import Models.Ferramentas;
+import Modelo.Amigos;
+import Modelo.Ferramentas;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

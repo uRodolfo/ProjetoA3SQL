@@ -3,8 +3,8 @@ package projetodb.projetoa3sql;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
-import Models.Amigos;
-import Models.Ferramentas;
+import Modelo.Amigos;
+import Modelo.Ferramentas;
 
 public class Menu {
     public static void exibirMenu(Connection conexao) {
