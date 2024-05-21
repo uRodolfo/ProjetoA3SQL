@@ -1,0 +1,7 @@
+projetodb\projetoa3sql\Conexao.class
+Controller\AmigoController.class
+DAO\AmigosDAO.class
+Models\Ferramentas.class
+projetodb\projetoa3sql\Menu.class
+Models\Amigos.class
+projetodb\projetoa3sql\ProjetoA3SQL.class
