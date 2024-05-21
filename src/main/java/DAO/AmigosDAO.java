@@ -1,6 +1,6 @@
 package DAO;
 
-import Modelo.Amigos;
+import modelo.Amigos;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,11 +14,10 @@ public class AmigosDAO {
     }
 
     public void adicionarAmigo(Amigos amigo) throws SQLException {
-        String sql = "INSERT INTO amigos (id, nome, telefone) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO amigos (nome, telefone) VALUES (?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, amigo.getNome());
-            stmt.setInt(2, amigo.getId());
-            stmt.setString(3, amigo.getTelefone());
+            stmt.setString(2, amigo.getTelefone());
             stmt.executeUpdate();
         }
     }
@@ -40,12 +39,11 @@ public class AmigosDAO {
     }
 
     public void atualizarAmigo(Amigos amigo) throws SQLException {
-        String sql = "UPDATE amigos SET nome = ?, email = ?, telefone = ? WHERE id = ?";
+        String sql = "UPDATE amigos SET nome = ?, telefone = ? WHERE id = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, amigo.getNome());
-
-            stmt.setString(3, amigo.getTelefone());
-            stmt.setInt(4, amigo.getId());
+            stmt.setString(2, amigo.getTelefone());
+            stmt.setInt(3, amigo.getId());
             stmt.executeUpdate();
         }
     }

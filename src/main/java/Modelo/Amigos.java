@@ -1,5 +1,4 @@
-package Modelo;
-
+package modelo;
 
 public class Amigos {
     private int id;
@@ -14,7 +13,6 @@ public class Amigos {
         this.telefone = telefone;
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
     }
