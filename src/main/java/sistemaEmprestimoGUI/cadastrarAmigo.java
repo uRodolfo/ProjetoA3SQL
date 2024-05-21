@@ -49,7 +49,7 @@ public class cadastrarAmigo extends javax.swing.JFrame {
 
         jLabel2.setText("Telefone:");
 
-        buttonCadastrarAmigo.setText("Cadastrar");
+        buttonCadastrarAmigo.setText("Cadastrar Amigo");
         buttonCadastrarAmigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCadastrarAmigoActionPerformed(evt);
