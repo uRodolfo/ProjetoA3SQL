@@ -71,6 +71,11 @@ public class registroEmprestimo extends javax.swing.JFrame {
                 itemAmigoRegistroItemStateChanged(evt);
             }
         });
+        itemAmigoRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemAmigoRegistroActionPerformed(evt);
+            }
+        });
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chave de Fenda", "Chave Inglesa", "Martelo", "Parafusadeira", "Furadeira", "Alicate", "Cerrote", "Makita", " ", " " }));
 
@@ -252,6 +257,10 @@ public class registroEmprestimo extends javax.swing.JFrame {
         // TODO add your handling code here:
         new cadastrarFerramentas().setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void itemAmigoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAmigoRegistroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemAmigoRegistroActionPerformed
 
     /**
      * @param args the command line arguments
