@@ -33,7 +33,8 @@ public class excluirAmigo extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnExcluir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Excluir Amigo");
 
         comboBoxAmigos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "item", "item 1" }));
 

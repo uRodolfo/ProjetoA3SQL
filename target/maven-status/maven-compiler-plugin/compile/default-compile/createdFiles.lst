@@ -3,6 +3,7 @@ sistemaEmprestimoGUI\gerenciarFerramentas.class
 sistemaEmprestimoGUI\registroEmprestimo$7.class
 sistemaEmprestimoGUI\gerenciarAmigo.class
 sistemaEmprestimoGUI\gerenciarAmigo$3.class
+sistemaEmprestimoGUI\registroEmprestimo$13.class
 sistemaEmprestimoGUI\relatorioFerramentas.class
 sistemaEmprestimoGUI\registroEmprestimo$5.class
 projetodb\projetoa3sql\Menu.class
@@ -12,8 +13,11 @@ sistemaEmprestimoGUI\gerenciarFerramentas$2.class
 amigosTable.class
 sistemaEmprestimoGUI\cadastrarAmigo$2.class
 sistemaEmprestimoGUI\relatorioFerramentas$1.class
+sistemaEmprestimoGUI\registroEmprestimo$11.class
 sistemaEmprestimoGUI\gerenciarAmigo$1.class
 sistemaEmprestimoGUI\registroEmprestimo.class
+sistemaEmprestimoGUI\relatorioEmprestimoAtivo.class
+sistemaEmprestimoGUI\registroEmprestimo$14.class
 projetodb\projetoa3sql\ProjetoA3SQL.class
 sistemaEmprestimoGUI\registroEmprestimo$2.class
 sistemaEmprestimoGUI\registroEmprestimo$1.class
@@ -24,6 +28,7 @@ sistemaEmprestimoGUI\excluirAmigo$1.class
 sistemaEmprestimoGUI\registroEmprestimo$8.class
 projetodb\projetoa3sql\Cadastro\Amigos.class
 sistemaEmprestimoGUI\gerenciarAmigo$2.class
+sistemaEmprestimoGUI\registroEmprestimo$12.class
 sistemaEmprestimoGUI\registroEmprestimo$4.class
 seuTextField.class
 sistemaEmprestimoGUI\cadastrarFerramentas$1.class
@@ -33,6 +38,8 @@ sistemaEmprestimoGUI\cadastrarAmigo$1.class
 sistemaEmprestimoGUI\cadastrarFerramentas$2.class
 sistemaEmprestimoGUI\cadastrarAmigo$3.class
 sistemaEmprestimoGUI\registroEmprestimo$3.class
+sistemaEmprestimoGUI\relatorioEmprestimoAtivo$1.class
 projetodb\projetoa3sql\Cadastro\Ferramentas.class
 sistemaEmprestimoGUI\registroEmprestimo$6.class
 sistemaEmprestimoGUI\excluirAmigo$3.class
+sistemaEmprestimoGUI\relatorioFerramentas$setVisible.class
