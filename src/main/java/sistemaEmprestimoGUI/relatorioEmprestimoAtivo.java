@@ -4,17 +4,22 @@
  */
 package sistemaEmprestimoGUI;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author maria
  */
 public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
+  
+   
 
     /**
      * Creates new form relatorioEmprestimoAtivo
      */
     public relatorioEmprestimoAtivo() {
         initComponents();
+        loadMockData();
     }
 
     /**
@@ -26,27 +31,48 @@ public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableEmprestimosAtivos = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Relatório Empréstimos Ativos");
+        setAlwaysOnTop(true);
+        setResizable(false);
 
-        jButton1.setText("jButton1");
+        tableEmprestimosAtivos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Amigo", "Ferramenta", "Data de Empréstimo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tableEmprestimosAtivos.setShowGrid(true);
+        jScrollPane1.setViewportView(tableEmprestimosAtivos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(348, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(177, 177, 177))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(207, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(186, 186, 186))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -55,6 +81,24 @@ public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    private void loadMockData() {
+        DefaultTableModel model = (DefaultTableModel) tableEmprestimosAtivos.getModel();
+         
+        //|Dados Mockados
+        Object[][] mockData = {
+            {1, "João", "Martelo", "2024-01-10"},
+            {2, "Maria", "Serrote", "2024-02-15"},
+            {3, "Carlos", "Chave de Fenda", "2024-03-20"},
+            {4, "Ana", "Alicate", "2024-04-25"}
+        };
+        
+        //Adicionar dados mockados ao modelo da tabela
+        for (Object[] row : mockData) {
+            model.addRow(row);
+          
+        }
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -88,6 +132,7 @@ public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tableEmprestimosAtivos;
     // End of variables declaration//GEN-END:variables
 }
