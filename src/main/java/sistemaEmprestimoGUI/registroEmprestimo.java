@@ -4,6 +4,9 @@
  */
 package sistemaEmprestimoGUI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,14 +15,16 @@ import javax.swing.JOptionPane;
  */
 public class registroEmprestimo extends javax.swing.JFrame {
    
+    private HashMap<String, Boolean> emprestimosAtivos; //Mock dta para simulação
 
     /**
      * Creates new form registroEmprestimo
      */
     public registroEmprestimo() {
         initComponents();
+        carregarEmprestimosAtivos();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,6 +51,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
         buttonRegistrarDevolucao = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         dataDevolucao = new javax.swing.JFormattedTextField();
+        notificationLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCadastrar = new javax.swing.JMenu();
         menuItemCadastrarAmigo = new javax.swing.JMenuItem();
@@ -174,7 +180,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
 
         jLabel6.setText("Data de Devolução:");
 
-        dataDevolucao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat(""))));
+        dataDevolucao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -223,6 +229,9 @@ public class registroEmprestimo extends javax.swing.JFrame {
                 .addComponent(buttonRegistrarDevolucao)
                 .addContainerGap())
         );
+
+        notificationLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        notificationLabel.setText("Status de Empréstimo:");
 
         menuCadastrar.setText("Cadastrar");
 
@@ -316,9 +325,11 @@ public class registroEmprestimo extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(75, 75, 75)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(notificationLabel)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -326,14 +337,45 @@ public class registroEmprestimo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(notificationLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void carregarEmprestimosAtivos() {
+        // Inicialização do HashMap para empréstimos ativos
+        emprestimosAtivos = new HashMap<>();
+
+        // Quando conectar ao banco de dados, substitua este código pelo carregamento dos dados do banco
+        // Por exemplo:
+        // ResultSet rs = statement.executeQuery("SELECT nome, emprestimo_ativo FROM amigos");
+        // while (rs.next()) {
+        //     String nome = rs.getString("nome");
+        //     boolean ativo = rs.getBoolean("emprestimo_ativo");
+        //     emprestimosAtivos.put(nome, ativo);
+        //     itemAmigoRegistro.addItem(nome);
+        // }
+        
+    }
+    
+    private void verificarEmprestimoAtivo() {
+        String amigoSelecionado = (String) itemAmigoRegistro.getSelectedItem();
+        if (amigoSelecionado != null && !amigoSelecionado.isEmpty()) {
+            boolean temEmprestimo = emprestimosAtivos.getOrDefault(amigoSelecionado, false);
+            if (temEmprestimo) {
+                notificationLabel.setText(amigoSelecionado + " tem um empréstimo ativo.");
+            } else {
+                notificationLabel.setText("Nenhum empréstimo ativo para " + amigoSelecionado);
+            }
+        } else {
+            notificationLabel.setText("Selecione um amigo para verificar.");
+        }
+    }
     private void buttonRegistrarEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistrarEmprestimoActionPerformed
         // TODO add your handling code here:
         //JOptionPane.showMessageDialog(this, "Broto.");
@@ -366,6 +408,10 @@ public class registroEmprestimo extends javax.swing.JFrame {
 
     private void itemAmigoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAmigoRegistroActionPerformed
         // TODO add your handling code here:
+        itemAmigoRegistro.addActionListener((ActionEvent e) -> {
+            verificarEmprestimoAtivo();
+        });
+
     }//GEN-LAST:event_itemAmigoRegistroActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -478,5 +524,9 @@ public class registroEmprestimo extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuREativos;
     private javax.swing.JMenuItem menuRFerramenta;
     private javax.swing.JMenuItem menuRHistoricos;
+    private javax.swing.JLabel notificationLabel;
     // End of variables declaration//GEN-END:variables
-}
+
+     // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
