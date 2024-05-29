@@ -326,18 +326,22 @@ public class registroEmprestimo extends javax.swing.JFrame {
 
     private void menuREativosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuREativosActionPerformed
         // TODO add your handling code here:
+        new relatorioEmprestimoAtivo().setVisible(true);
     }//GEN-LAST:event_menuREativosActionPerformed
 
     private void menuRDevedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRDevedoresActionPerformed
         // TODO add your handling code here:
+        new relatorioDevedores().setVisible(true);
     }//GEN-LAST:event_menuRDevedoresActionPerformed
 
     private void menuRFerramentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRFerramentaActionPerformed
         // TODO add your handling code here:
+        new relatorioCusto().setVisible(true);
     }//GEN-LAST:event_menuRFerramentaActionPerformed
 
     private void menuRHistoricosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRHistoricosActionPerformed
         // TODO add your handling code here:
+        new relatorioHistoricoEmprestimo().setVisible(true);
     }//GEN-LAST:event_menuRHistoricosActionPerformed
 
     /**
