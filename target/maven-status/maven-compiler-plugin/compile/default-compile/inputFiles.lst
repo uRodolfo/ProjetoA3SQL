@@ -1,7 +1,7 @@
-C:\Users\maria\Documents\repositoriosGit\ProjetoA3SQL\src\main\java\sistemaEmprestimoGUI\DatabaseConnection.java
 C:\Users\maria\Documents\repositoriosGit\ProjetoA3SQL\src\main\java\sistemaEmprestimoGUI\gerenciarFerramentas.java
 C:\Users\maria\Documents\repositoriosGit\ProjetoA3SQL\src\main\java\projetodb\projetoa3sql\Cadastro\Amigos.java
 C:\Users\maria\Documents\repositoriosGit\ProjetoA3SQL\src\main\java\sistemaEmprestimoGUI\gerenciarAmigo.java
+C:\Users\maria\Documents\repositoriosGit\ProjetoA3SQL\src\main\java\sistemaEmprestimoGUI\emprestimoPorAmigo.java
 C:\Users\maria\Documents\repositoriosGit\ProjetoA3SQL\src\main\java\sistemaEmprestimoGUI\relatorioEmprestimoAtivo.java
 C:\Users\maria\Documents\repositoriosGit\ProjetoA3SQL\src\main\java\projetodb\projetoa3sql\ProjetoA3SQL.java
 C:\Users\maria\Documents\repositoriosGit\ProjetoA3SQL\src\main\java\sistemaEmprestimoGUI\cadastrarFerramentas.java
@@ -13,4 +13,4 @@ C:\Users\maria\Documents\repositoriosGit\ProjetoA3SQL\src\main\java\sistemaEmpre
 C:\Users\maria\Documents\repositoriosGit\ProjetoA3SQL\src\main\java\sistemaEmprestimoGUI\registroEmprestimo.java
 C:\Users\maria\Documents\repositoriosGit\ProjetoA3SQL\src\main\java\sistemaEmprestimoGUI\relatorioHistoricoEmprestimo.java
 C:\Users\maria\Documents\repositoriosGit\ProjetoA3SQL\src\main\java\sistemaEmprestimoGUI\excluirAmigo.java
-C:\Users\maria\Documents\repositoriosGit\ProjetoA3SQL\src\main\java\sistemaEmprestimoGUI\relatorioCusto.java
+C:\Users\maria\Documents\repositoriosGit\ProjetoA3SQL\src\main\java\sistemaEmprestimoGUI\relatorioFerramenta.java

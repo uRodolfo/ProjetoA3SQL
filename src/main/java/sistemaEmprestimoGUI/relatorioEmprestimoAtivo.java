@@ -19,7 +19,6 @@ public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
      */
     public relatorioEmprestimoAtivo() {
         initComponents();
-        loadMockData();
     }
 
     /**
@@ -41,14 +40,23 @@ public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
 
         tableEmprestimosAtivos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Amigo", "Ferramenta", "Data de Empréstimo"
+                "ID", "Amigo", "Ferramenta", "Data de Empréstimo", "Devolução Prevista"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -64,7 +72,7 @@ public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -72,7 +80,7 @@ public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -81,23 +89,6 @@ public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    private void loadMockData() {
-        DefaultTableModel model = (DefaultTableModel) tableEmprestimosAtivos.getModel();
-         
-        //|Dados Mockados
-        Object[][] mockData = {
-            {1, "João", "Martelo", "2024-01-10"},
-            {2, "Maria", "Serrote", "2024-02-15"},
-            {3, "Carlos", "Chave de Fenda", "2024-03-20"},
-            {4, "Ana", "Alicate", "2024-04-25"}
-        };
-        
-        //Adicionar dados mockados ao modelo da tabela
-        for (Object[] row : mockData) {
-            model.addRow(row);
-          
-        }
-    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
