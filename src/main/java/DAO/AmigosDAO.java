@@ -1,13 +1,58 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DAO;
 
-/**
- *
- * @author robso
- */
+import Modelo.Amigos;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class AmigosDAO {
-    
+    private Connection conexao;
+
+    public AmigosDAO(Connection conexao) {
+        this.conexao = conexao;
+    }
+
+    public void adicionarAmigo(Amigos amigo) throws SQLException {
+        String sql = "INSERT INTO amigos (nome, telefone) VALUES (?, ?)";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, amigo.getNome());
+            stmt.setString(2, amigo.getTelefone());
+            stmt.executeUpdate();
+        }
+    }
+
+    public List<Amigos> listarAmigos() throws SQLException {
+        List<Amigos> amigos = new ArrayList<>();
+        String sql = "SELECT * FROM amigos";
+        try (Statement stmt = conexao.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Amigos amigo = new Amigos(
+                    rs.getInt("id"),
+                    rs.getString("nome"),
+                    rs.getString("telefone")
+                );
+                amigos.add(amigo);
+            }
+        }
+        return amigos;
+    }
+
+    public void atualizarAmigo(Amigos amigo) throws SQLException {
+        String sql = "UPDATE amigos SET nome = ?, telefone = ? WHERE id = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, amigo.getNome());
+            stmt.setString(2, amigo.getTelefone());
+            stmt.setInt(3, amigo.getId());
+            stmt.executeUpdate();
+        }
+    }
+
+    public void deletarAmigo(int id) throws SQLException {
+        String sql = "DELETE FROM amigos WHERE id = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+    }
 }
