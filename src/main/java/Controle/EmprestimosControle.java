@@ -13,8 +13,8 @@ public class EmprestimosControle {
         this.emprestimoDAO = emprestimoDAO;
     }
 
-    public void criarEmprestimo(Connection conexao, Emprestimos emprestimo) throws SQLException {
-        emprestimoDAO.criarEmprestimo(conexao, emprestimo);
+    public void criarEmprestimo(Connection conexao, Emprestimos emprestimo, int idUsuario) throws SQLException {
+        emprestimoDAO.criarEmprestimo(conexao, emprestimo, idUsuario); // Passar o id do usuário
     }
 
     public Emprestimos lerEmprestimoPorId(Connection conexao, int id) throws SQLException {

@@ -39,6 +39,12 @@ public class excluirFerramenta extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Selecione uma ferramenta:");
 
+        boxExcluirFerramenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxExcluirFerramentaActionPerformed(evt);
+            }
+        });
+
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +99,10 @@ btnExcluir.addActionListener(new ActionListener() {
     }
 });
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void boxExcluirFerramentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxExcluirFerramentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boxExcluirFerramentaActionPerformed
 
     /**
      * @param args the command line arguments

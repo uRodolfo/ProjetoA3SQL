@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author maria
+ * @author maria 
  */
 public class cadastrarAmigo extends javax.swing.JFrame {
 
@@ -47,6 +47,12 @@ public class cadastrarAmigo extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Telefone:");
+
+        txtCadastrarTelefoneAmigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCadastrarTelefoneAmigoActionPerformed(evt);
+            }
+        });
 
         buttonCadastrarAmigo.setText("Cadastrar Amigo");
         buttonCadastrarAmigo.addActionListener(new java.awt.event.ActionListener() {
@@ -104,6 +110,10 @@ public class cadastrarAmigo extends javax.swing.JFrame {
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso.");
     }//GEN-LAST:event_buttonCadastrarAmigoActionPerformed
+
+    private void txtCadastrarTelefoneAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCadastrarTelefoneAmigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCadastrarTelefoneAmigoActionPerformed
 
     /**
      * @param args the command line arguments

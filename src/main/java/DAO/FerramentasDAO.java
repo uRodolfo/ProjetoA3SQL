@@ -13,11 +13,12 @@ public class FerramentasDAO {
     }
 
     public void adicionarFerramenta(Ferramentas ferramenta) throws SQLException {
-        String sql = "INSERT INTO ferramentas (nome, marca, custo) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO ferramentas (id_ferramenta, nome_ferramenta, marca_ferramenta, preco) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setString(1, ferramenta.getNome());
-            stmt.setString(2, ferramenta.getMarca());
-            stmt.setDouble(3, ferramenta.getCusto());
+            stmt.setInt(1, ferramenta.getId());
+            stmt.setString(2, ferramenta.getNome());
+            stmt.setString(3, ferramenta.getMarca());
+            stmt.setDouble(4, ferramenta.getCusto());
             stmt.executeUpdate();
         }
     }
@@ -29,10 +30,10 @@ public class FerramentasDAO {
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 Ferramentas ferramenta = new Ferramentas(
-                    rs.getInt("id"),
-                    rs.getString("nome"),
-                    rs.getString("marca"),
-                    rs.getDouble("custo")
+                    rs.getInt("id_ferramenta"),
+                    rs.getString("nome_ferramenta"),
+                    rs.getString("marca_ferramenta"),
+                    rs.getDouble("preco")
                 );
                 ferramentas.add(ferramenta);
             }
@@ -41,7 +42,7 @@ public class FerramentasDAO {
     }
 
     public void atualizarFerramenta(Ferramentas ferramenta) throws SQLException {
-        String sql = "UPDATE ferramentas SET nome = ?, marca = ?, custo = ? WHERE id = ?";
+        String sql = "UPDATE ferramentas SET nome_ferramenta = ?, marca_ferramenta = ?, preco = ? WHERE id_ferramenta = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, ferramenta.getNome());
             stmt.setString(2, ferramenta.getMarca());
@@ -52,7 +53,7 @@ public class FerramentasDAO {
     }
 
     public void deletarFerramenta(int id) throws SQLException {
-        String sql = "DELETE FROM ferramentas WHERE id = ?";
+        String sql = "DELETE FROM ferramentas WHERE id_ferramenta = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();

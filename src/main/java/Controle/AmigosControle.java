@@ -12,12 +12,12 @@ public class AmigosControle {
         this.amigoDAO = amigoDAO;
     }
 
-    public void adicionarAmigo(Amigos amigo) throws SQLException {
-        amigoDAO.adicionarAmigo(amigo);
+    public void adicionarAmigo(Amigos amigo, int idUsuario) throws SQLException {
+        amigoDAO.adicionarAmigo(amigo, idUsuario);
     }
 
-    public List<Amigos> listarAmigos() throws SQLException {
-        return amigoDAO.listarAmigos();
+    public List<Amigos> listarAmigos(int idUsuario) throws SQLException {
+        return amigoDAO.listarAmigos(idUsuario);
     }
 
     public void atualizarAmigo(Amigos amigo) throws SQLException {
