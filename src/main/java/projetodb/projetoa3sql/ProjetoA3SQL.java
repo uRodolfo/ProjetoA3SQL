@@ -3,7 +3,7 @@ package projetodb.projetoa3sql;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.swing.JFrame;
-import sistemaEmprestimoGUI.registroEmprestimo;
+import Visao.registroEmprestimo;
 import projetodb.projetoa3sql.Conexao;
 
 public class ProjetoA3SQL {

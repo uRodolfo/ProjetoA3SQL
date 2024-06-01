@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package sistemaEmprestimoGUI;
+package Visao;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
  *
  * @author maria
  */
-public class excluirFerramenta extends javax.swing.JFrame {
+public class excluirAmigo extends javax.swing.JFrame {
 
     /**
-     * Creates new form excluirFerramenta
+     * Creates new form excluirAmigo
      */
-    public excluirFerramenta() {
+    public excluirAmigo() {
         initComponents();
     }
 
@@ -29,15 +29,15 @@ public class excluirFerramenta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        comboBoxAmigos = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        boxExcluirFerramenta = new javax.swing.JComboBox<>();
         btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Excluir Ferramenta");
+        setTitle("Excluir Amigo");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("Selecione uma ferramenta:");
+        jLabel1.setText("Selecione um amigo:");
 
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -53,25 +53,25 @@ public class excluirFerramenta extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(boxExcluirFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(comboBoxAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(152, 152, 152)
+                        .addGap(191, 191, 191)
                         .addComponent(btnExcluir)))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(boxExcluirFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboBoxAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
                 .addComponent(btnExcluir)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
 
         pack();
@@ -83,15 +83,17 @@ public class excluirFerramenta extends javax.swing.JFrame {
 btnExcluir.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent e) {
         // Obtenha o amigo selecionado no JComboBox
-        String amigoSelecionado = (String) boxExcluirFerramenta.getSelectedItem();
+        String amigoSelecionado = (String) comboBoxAmigos.getSelectedItem();
         
         // Implemente a lógica para excluir o amigo do banco de dados aqui
         // ...
 
         // Após excluir do banco de dados, remova o item do JComboBox
-        boxExcluirFerramenta.removeItem(amigoSelecionado);
+        comboBoxAmigos.removeItem(amigoSelecionado);
     }
 });
+
+        
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
@@ -111,27 +113,27 @@ btnExcluir.addActionListener(new ActionListener() {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(excluirFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(excluirAmigo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(excluirFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(excluirAmigo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(excluirFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(excluirAmigo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(excluirFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(excluirAmigo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new excluirFerramenta().setVisible(true);
+                new excluirAmigo().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> boxExcluirFerramenta;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JComboBox<String> comboBoxAmigos;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

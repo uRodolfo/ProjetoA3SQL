@@ -2,19 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package sistemaEmprestimoGUI;
+package Visao;
+
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author maria
  */
-public class gerenciarFerramentas extends javax.swing.JFrame {
+public class relatorioFerramenta extends javax.swing.JFrame {
 
     /**
-     * Creates new form gerenciarFerramentas
+     * Creates new form relatorioFerramenta
      */
-    public gerenciarFerramentas() {
+    public relatorioFerramenta() {
         initComponents();
+        calcularTotalCusto();
     }
 
     /**
@@ -27,17 +30,18 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        toolsTable = new javax.swing.JTable();
+        totalCostLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gerenciar Ferramentas");
+        setTitle("Relatório de Ferramentas e Custo Total de Aquisição");
+        setResizable(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        toolsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
+                { new Integer(1), "Martelo", "Tramontina",  new Double(25.5)},
+                { new Integer(2), "Serrote", "Bosch",  new Double(45.3)},
+                { new Integer(3), "Chave de Fenda", "Stanley",  new Double(15.75)},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -47,7 +51,7 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Ferramenta", "Marca", "Custo de Aquisição"
+                "ID", "Nome", "Marca", "Custo de Aquisição"
             }
         ) {
             Class[] types = new Class [] {
@@ -58,15 +62,11 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        toolsTable.setShowGrid(true);
+        jScrollPane1.setViewportView(toolsTable);
 
-        jButton1.setText("Excluir Ferramenta");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        totalCostLabel.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        totalCostLabel.setText("Total de Custo: R$ 0.00");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,30 +74,25 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(totalCostLabel)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(241, 241, 241)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(jButton1)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(totalCostLabel)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        new excluirFerramenta().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,27 +111,49 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(gerenciarFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(relatorioFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(gerenciarFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(relatorioFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(gerenciarFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(relatorioFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(gerenciarFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(relatorioFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new gerenciarFerramentas().setVisible(true);
+                new relatorioFerramenta().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable toolsTable;
+    private javax.swing.JLabel totalCostLabel;
     // End of variables declaration//GEN-END:variables
+
+    private void calcularTotalCusto() {
+        DefaultTableModel model = (DefaultTableModel) toolsTable.getModel();
+        double totalCost = 0;
+        
+        for (int i = 0; i < model.getRowCount(); i++) {
+            Object costValue = model.getValueAt(i, 3);
+            if (costValue != null) {
+                // Converte o valor para Double se necessário
+                try {
+                    totalCost += Double.parseDouble(costValue.toString());
+                } catch (NumberFormatException e) {
+                    // Trate a exceção se o valor não puder ser convertido
+                    System.err.println("Valor de custo inválido na linha " + (i + 1));
+                }
+            }
+        }
+        
+        totalCostLabel.setText("Total de Custo: R$ " + String.format("%.2f", totalCost));
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
 }
