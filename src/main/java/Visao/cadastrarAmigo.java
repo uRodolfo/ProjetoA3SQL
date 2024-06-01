@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package sistemaEmprestimoGUI;
+package Visao;
 
 import javax.swing.JOptionPane;
 
@@ -36,7 +36,6 @@ public class cadastrarAmigo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Amigo");
-        setPreferredSize(new java.awt.Dimension(616, 512));
         setResizable(false);
 
         jLabel1.setText("Nome:");
