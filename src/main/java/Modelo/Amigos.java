@@ -1,31 +1,37 @@
-package projetodb.projetoa3sql.Cadastro;
+package Modelo;
 
 public class Amigos {
+    private int id;
     private String nome;
     private String telefone;
 
-    // Construtor
-    public Amigos(String nome, String telefone) {
+    public Amigos(int id, String nome, String telefone) {
+        this.id = id;
         this.nome = nome;
         this.telefone = telefone;
     }
 
-    // Método getter para o nome
+    // Getters e setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
 
-    // Método setter para o nome
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    // Método getter para o telefone
     public String getTelefone() {
         return telefone;
     }
 
-    // Método setter para o telefone
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }

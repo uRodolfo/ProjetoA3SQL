@@ -21,6 +21,7 @@ sistemaEmprestimoGUI\excluirFerramenta$2.class
 sistemaEmprestimoGUI\cadastrarAmigo$1.class
 sistemaEmprestimoGUI\registroEmprestimo$3.class
 sistemaEmprestimoGUI\relatorioEmprestimoAtivo$1.class
+projetodb\projetoa3sql\ProjetoA3SQL$1.class
 sistemaEmprestimoGUI\relatorioDevedores$1.class
 sistemaEmprestimoGUI\registroEmprestimo$15.class
 sistemaEmprestimoGUI\emprestimoPorAmigo.class
@@ -32,7 +33,6 @@ sistemaEmprestimoGUI\gerenciarFerramentas.class
 sistemaEmprestimoGUI\relatorioFerramenta.class
 sistemaEmprestimoGUI\gerenciarAmigo$3.class
 sistemaEmprestimoGUI\registroEmprestimo$5.class
-projetodb\projetoa3sql\Menu.class
 sistemaEmprestimoGUI\registroEmprestimo$9.class
 sistemaEmprestimoGUI\relatorioDevedores.class
 sistemaEmprestimoGUI\emprestimoPorAmigo$1.class

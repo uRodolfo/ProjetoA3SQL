@@ -1,59 +1,15 @@
 package projetodb.projetoa3sql;
 
-import projetodb.projetoa3sql.Cadastro.Amigos;
-import projetodb.projetoa3sql.Cadastro.Ferramentas;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.DriverManager;
 
 public class Conexao {
-    public static void inserirAmigo(Connection conexao, Amigos amigo) throws SQLException {
-        String sql = "INSERT INTO Amigos (nome, telefone) VALUES (?, ?)";
-        try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
-            pstmt.setString(1, amigo.getNome());
-            pstmt.setString(2, amigo.getTelefone());
-            pstmt.executeUpdate();
-            System.out.println("Amigo inserido na tabela Amigos: " + amigo.getNome());
-        }
-    }
+    private static final String URL = "jdbc:mysql://localhost:3306/standard"; // Substitua "seuBancoDeDados" pelo nome do seu banco de dados
+    private static final String USUARIO = "root"; // Substitua "seuUsuario" pelo seu usuário do MySQL
+    private static final String SENHA = "root"; // Substitua "suaSenha" pela sua senha do MySQL
 
-    public static void inserirFerramenta(Connection conexao, Ferramentas ferramenta) throws SQLException {
-        String sql = "INSERT INTO Ferramentas (nome, marca, custoDeAquisicao) VALUES (?, ?, ?)";
-        try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
-            pstmt.setString(1, ferramenta.getNome());
-            pstmt.setString(2, ferramenta.getMarca());
-            pstmt.setDouble(3, ferramenta.getCustoDeAquisicao());
-            pstmt.executeUpdate();
-            System.out.println("Ferramenta inserida na tabela Ferramentas: " + ferramenta.getNome());
-        }
-    }
-
-    public static void verItens(Connection conexao) throws SQLException {
-        String sqlAmigos = "SELECT * FROM Amigos";
-        String sqlFerramentas = "SELECT * FROM Ferramentas";
-
-        try (PreparedStatement pstmtAmigos = conexao.prepareStatement(sqlAmigos);
-             PreparedStatement pstmtFerramentas = conexao.prepareStatement(sqlFerramentas)) {
-
-            System.out.println("Amigos:");
-            try (ResultSet rs = pstmtAmigos.executeQuery()) {
-                while (rs.next()) {
-                    String nome = rs.getString("nome");
-                    String telefone = rs.getString("telefone");
-                    System.out.println("Nome: " + nome + ", Telefone: " + telefone);
-                }
-            }
-
-            System.out.println("\nFerramentas:");
-            try (ResultSet rs = pstmtFerramentas.executeQuery()) {
-                while (rs.next()) {
-                    String nome = rs.getString("nome");
-                    String marca = rs.getString("marca");
-                    double custoDeAquisicao = rs.getDouble("custoDeAquisicao");
-                    System.out.println("Nome: " + nome + ", Marca: " + marca + ", Custo de Aquisição: " + custoDeAquisicao);
-                }
-            }
-        }
+    public static Connection conectar() throws SQLException {
+        return DriverManager.getConnection(URL, USUARIO, SENHA);
     }
 }

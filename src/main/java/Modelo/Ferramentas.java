@@ -1,4 +1,4 @@
-package projetodb.projetoa3sql.Cadastro;
+package Modelo;
 
 public class Ferramentas {
     private String nome;
