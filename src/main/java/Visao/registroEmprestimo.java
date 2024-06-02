@@ -1,25 +1,57 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Visao;
 
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
-import javax.swing.JOptionPane;
-import DAO.AmigosDAO;
-import Modelo.Amigos;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField; // Importe JTextField aqui
+import Modelo.Amigos;
+import Controle.AmigosControle;
+import DAO.AmigosDAO;
 import projetodb.projetoa3sql.Conexao;
+import java.sql.Connection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+
 /**
- *
- * @author maria
+ * Registro de Empréstimo
+ * Autor: Maria
  */
 public class registroEmprestimo extends javax.swing.JFrame {
-   
+    private Connection conexao;
+    private AmigosControle amigoControle; // Adicione essa linha
+    private JTextField JTFAmigo; // Adicione essa linha
+
+    public registroEmprestimo() {
+        initComponents();
+        JTFAmigo = new JTextField(); // Inicialize JTFAmigo aqui
+        try {
+            // Obtendo a conexão com o banco de dados
+            conexao = Conexao.conectar();
+            
+            // Inicializando o controle de amigos
+            amigoControle = new AmigosControle(new AmigosDAO(conexao));
+            
+            // Definindo a localização relativa da janela
+            this.setLocationRelativeTo(null); 
+
+            // Atualiza a JComboBox ao iniciar a aplicação
+            updateCombo();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados: " + e.getMessage());
+        }
+    }
+
+    // O restante do código da classe continua aqui...
+
+    
+
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -76,6 +108,8 @@ public class registroEmprestimo extends javax.swing.JFrame {
             }
         });
 
+        itemAmigoRegistro.setMaximumRowCount(50);
+        itemAmigoRegistro.setToolTipText("");
         itemAmigoRegistro.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 itemAmigoRegistroItemStateChanged(evt);
@@ -131,8 +165,8 @@ public class registroEmprestimo extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(itemAmigoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                    .addComponent(itemAmigoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(itemFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -318,7 +352,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         pack();
@@ -353,8 +387,22 @@ public class registroEmprestimo extends javax.swing.JFrame {
     private void itemAmigoRegistroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_itemAmigoRegistroItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_itemAmigoRegistroItemStateChanged
+private void updateCombo() {
+          System.out.println("Atualizando ComboBox");
+    String sql = "SELECT nome_usuario FROM amigos"; // Seleciona os nomes dos amigos
+    try (PreparedStatement pst = conexao.prepareStatement(sql);
+         ResultSet rs = pst.executeQuery()) {
 
-
+        itemAmigoRegistro.removeAllItems(); // Limpar os itens existentes na combobox
+        while (rs.next()) {
+            String nome = rs.getString("nome_usuario");
+            System.out.println("Adicionando nome: " + nome);
+            itemAmigoRegistro.addItem(nome); // Adiciona o nome do amigo à JComboBox
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Erro ao carregar amigos: " + e.getMessage());
+    }
+}
     private void menuItemCadastrarAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarAmigoActionPerformed
         // TODO add your handling code here:
         new cadastrarAmigo().setVisible(true);
@@ -366,22 +414,9 @@ public class registroEmprestimo extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void itemAmigoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAmigoRegistroActionPerformed
-       try {
-        // Limpar itens antigos da JComboBox
-        itemAmigoRegistro.removeAllItems();
-        
-        // Recuperar a lista de amigos do banco de dados
-        List<Amigos> amigos = amigosDAO.listarAmigos(idUsuario); // Substitua 'idUsuario' pelo ID do usuário logado
-        
-        // Adicionar os nomes dos amigos à JComboBox
-        for (Amigos amigo : amigos) {
-            itemAmigoRegistro.addItem(amigo.getNome());
-        }
-    } catch (SQLException ex) {
-        ex.printStackTrace(); // Tratar o erro de acordo com a sua aplicação
-    }
+       String nomeSelecionado = (String) itemAmigoRegistro.getSelectedItem();
+    JTFAmigo.setText(nomeSelecionado);
 
-      
 
     }//GEN-LAST:event_itemAmigoRegistroActionPerformed
 
@@ -467,7 +502,9 @@ public class registroEmprestimo extends javax.swing.JFrame {
             public void run() {
                 new registroEmprestimo().setVisible(true);
             }
-        });
+            
+        }
+        );   
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
