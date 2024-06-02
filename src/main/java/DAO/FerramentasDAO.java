@@ -12,16 +12,18 @@ public class FerramentasDAO {
         this.conexao = conexao;
     }
 
-    public void adicionarFerramenta(Ferramentas ferramenta) throws SQLException {
-        String sql = "INSERT INTO ferramentas (id_ferramenta, nome_ferramenta, marca_ferramenta, preco) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, ferramenta.getId());
-            stmt.setString(2, ferramenta.getNome());
-            stmt.setString(3, ferramenta.getMarca());
-            stmt.setDouble(4, ferramenta.getCusto());
-            stmt.executeUpdate();
-        }
+   public void adicionarFerramenta(Ferramentas ferramenta, int quantidade) throws SQLException {
+    String sql = "INSERT INTO ferramentas (id_ferramenta, nome_ferramenta, marca_ferramenta, preco, qtd_ferramenta) VALUES (?, ?, ?, ?, ?)";
+    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        stmt.setInt(1, ferramenta.getId()); // Aqui inserimos o ID da ferramenta
+        stmt.setString(2, ferramenta.getNome());
+        stmt.setString(3, ferramenta.getMarca());
+        stmt.setDouble(4, ferramenta.getCusto());
+        stmt.setInt(5, quantidade); // Quantidade disponível
+        stmt.executeUpdate();
     }
+}
+
 
     public List<Ferramentas> listarFerramentas() throws SQLException {
         List<Ferramentas> ferramentas = new ArrayList<>();
@@ -58,5 +60,6 @@ public class FerramentasDAO {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
+        
     }
 }

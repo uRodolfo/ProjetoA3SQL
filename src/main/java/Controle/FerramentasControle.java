@@ -12,8 +12,8 @@ public class FerramentasControle {
         this.ferramentaDAO = ferramentaDAO;
     }
 
-    public void adicionarFerramenta(Ferramentas ferramenta) throws SQLException {
-        ferramentaDAO.adicionarFerramenta(ferramenta);
+    public void adicionarFerramenta(Ferramentas ferramenta, int quantidade) throws SQLException {
+        ferramentaDAO.adicionarFerramenta(ferramenta, quantidade);
     }
 
     public List<Ferramentas> listarFerramentas() throws SQLException {

@@ -16,6 +16,10 @@ public class AmigosControle {
         amigoDAO.adicionarAmigo(amigo, idUsuario);
     }
 
+    public void adicionarUsuario(int idUsuario, String nomeUsuario, String telefoneUsuario) throws SQLException {
+        amigoDAO.adicionarUsuario(idUsuario, nomeUsuario, telefoneUsuario);
+    }
+
     public List<Amigos> listarAmigos(int idUsuario) throws SQLException {
         return amigoDAO.listarAmigos(idUsuario);
     }
@@ -28,3 +32,4 @@ public class AmigosControle {
         amigoDAO.deletarAmigo(id);
     }
 }
+

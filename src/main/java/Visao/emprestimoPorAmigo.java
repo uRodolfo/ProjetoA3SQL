@@ -3,11 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Visao;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import Modelo.Amigos;
+import Controle.EmprestimosControle;
 
-/**
- *
- * @author maria
- */
 public class emprestimoPorAmigo extends javax.swing.JFrame {
 
     /**

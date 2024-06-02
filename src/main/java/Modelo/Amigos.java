@@ -1,23 +1,23 @@
 package Modelo;
 
 public class Amigos {
-    private int id;
+    private int idUsuario;
     private String nome;
     private String telefone;
 
-    public Amigos(int id, String nome, String telefone) {
-        this.id = id;
+    public Amigos(int idUsuario, String nome, String telefone) {
+        this.idUsuario = idUsuario;
         this.nome = nome;
         this.telefone = telefone;
     }
 
     // Getters e setters
-    public int getId() {
-        return id;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNome() {
