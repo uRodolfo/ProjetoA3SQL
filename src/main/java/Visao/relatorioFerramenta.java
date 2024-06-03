@@ -5,6 +5,13 @@
 package Visao;
 
 import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import projetodb.projetoa3sql.Conexao;
 
 /**
  *
@@ -32,6 +39,7 @@ public class relatorioFerramenta extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         toolsTable = new javax.swing.JTable();
         totalCostLabel = new javax.swing.JLabel();
+        AtualizarBD = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Relatório de Ferramentas e Custo Total de Aquisição");
@@ -39,9 +47,8 @@ public class relatorioFerramenta extends javax.swing.JFrame {
 
         toolsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "Martelo", "Tramontina",  new Double(25.5)},
-                { new Integer(2), "Serrote", "Bosch",  new Double(45.3)},
-                { new Integer(3), "Chave de Fenda", "Stanley",  new Double(15.75)},
+                {null, "", "", null},
+                {null, "", "", null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -68,6 +75,13 @@ public class relatorioFerramenta extends javax.swing.JFrame {
         totalCostLabel.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         totalCostLabel.setText("Total de Custo: R$ 0.00");
 
+        AtualizarBD.setText("Atualizar banco de dados");
+        AtualizarBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtualizarBDActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -80,19 +94,61 @@ public class relatorioFerramenta extends javax.swing.JFrame {
                         .addComponent(totalCostLabel)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addComponent(AtualizarBD)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addComponent(AtualizarBD)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(totalCostLabel)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void AtualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarBDActionPerformed
+      try {
+    // 1. Estabelecer conexão com o banco de dados
+    Connection conexao = Conexao.conectar();
+
+    // 2. Escrever a consulta SQL para selecionar os dados das ferramentas
+    String sql = "SELECT id_ferramenta, nome_ferramenta, marca_ferramenta, preco FROM ferramentas";
+
+    // 3. Executar a consulta SQL
+    try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
+        ResultSet rs = pstmt.executeQuery();
+
+        // Limpar a tabela antes de adicionar novos dados
+        DefaultTableModel model = (DefaultTableModel) toolsTable.getModel();
+        model.setRowCount(0);
+
+        // Processar os resultados e preencher a tabela de ferramentas
+        while (rs.next()) {
+            int id = rs.getInt("id_ferramenta");
+            String nome = rs.getString("nome_ferramenta");
+            String marca = rs.getString("marca_ferramenta");
+            double preco = rs.getDouble("preco");
+
+            Object[] rowData = {id, nome, marca, preco};
+            model.addRow(rowData);
+        }
+
+        // 4. Calcular o custo total
+        calcularTotalCusto();
+    }
+} catch (SQLException e) {
+    JOptionPane.showMessageDialog(this, "Erro ao recuperar dados das ferramentas: " + e.getMessage());
+}
+
+    }//GEN-LAST:event_AtualizarBDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,12 +185,6 @@ public class relatorioFerramenta extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable toolsTable;
-    private javax.swing.JLabel totalCostLabel;
-    // End of variables declaration//GEN-END:variables
-
     private void calcularTotalCusto() {
         DefaultTableModel model = (DefaultTableModel) toolsTable.getModel();
         double totalCost = 0;
@@ -155,5 +205,15 @@ public class relatorioFerramenta extends javax.swing.JFrame {
         totalCostLabel.setText("Total de Custo: R$ " + String.format("%.2f", totalCost));
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AtualizarBD;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable toolsTable;
+    private javax.swing.JLabel totalCostLabel;
+    // End of variables declaration//GEN-END:variables
+
+    
     
 }
