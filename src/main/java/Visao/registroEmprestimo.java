@@ -140,7 +140,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
         jLabel3.setText("Data de Empréstimo:");
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel8.setText("Escreva da seguinte forma: yyyy - MM - DD");
+        jLabel8.setText("Escreva da seguinte forma: YYYY - MM - DD");
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel9.setText("Exemplo: 2024-06-02 (dia 2 de junho de 2024)");
@@ -367,7 +367,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,44 +383,44 @@ public class registroEmprestimo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonRegistrarEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistrarEmprestimoActionPerformed
-      try {
-        // Obter os dados do formulário
-        String amigoSelecionado = (String) itemAmigoRegistro.getSelectedItem();
-        String ferramentaSelecionada = (String) itemFerramenta.getSelectedItem();
-        String dataEmprestimoStr = (String) dataEmprestimo.getText();
+     try {
+    // Obter os dados do formulário
+    String amigoSelecionado = (String) itemAmigoRegistro.getSelectedItem();
+    String ferramentaSelecionada = (String) itemFerramenta.getSelectedItem();
+    String dataEmprestimoStr = (String) dataEmprestimo.getText();
 
-        // Verificar se todos os campos foram preenchidos
-        if (amigoSelecionado.isEmpty() || ferramentaSelecionada.isEmpty() || dataEmprestimoStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.");
-            return;
-        }
-
-        // Converter a data de empréstimo para o formato de data do SQL
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date parsedEmprestimoDate = format.parse(dataEmprestimoStr);
-        java.sql.Date sqlDateEmprestimo = new java.sql.Date(parsedEmprestimoDate.getTime());
-
-        // Calcular a data de devolução esperada (7 dias após a data de empréstimo)
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(parsedEmprestimoDate);
-        calendar.add(Calendar.DAY_OF_YEAR, 7);
-        java.sql.Date sqlDateDevolucao = new java.sql.Date(calendar.getTimeInMillis());
-
-        // Criar um objeto de Empréstimo com os dados do formulário
-        Emprestimos emprestimo = new Emprestimos(0, getFerramentaId(ferramentaSelecionada), ferramentaSelecionada, sqlDateEmprestimo, sqlDateDevolucao, getUsuarioId(amigoSelecionado), "Emprestado");
-
-        // Chamar o método do DAO para registrar o empréstimo
-        EmprestimosDAO.criarEmprestimo(conexao, emprestimo, getUsuarioId(amigoSelecionado));
-
-        // Exibir uma mensagem de sucesso
-        JOptionPane.showMessageDialog(this, "Empréstimo registrado com sucesso.");
-    } catch (ParseException e) {
-        // Em caso de erro de parsing de data, exibir uma mensagem de erro
-        JOptionPane.showMessageDialog(this, "Erro ao converter data: " + e.getMessage());
-    } catch (SQLException e) {
-        // Em caso de erro de SQL, exibir uma mensagem de erro
-        JOptionPane.showMessageDialog(this, "Erro ao registrar empréstimo: " + e.getMessage());
+    // Verificar se todos os campos foram preenchidos
+    if (amigoSelecionado.isEmpty() || ferramentaSelecionada.isEmpty() || dataEmprestimoStr.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.");
+        return;
     }
+
+    // Converter a data de empréstimo para o formato de data do SQL
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    java.util.Date parsedEmprestimoDate = format.parse(dataEmprestimoStr);
+    java.sql.Date sqlDateEmprestimo = new java.sql.Date(parsedEmprestimoDate.getTime());
+
+    // Calcular a data de devolução esperada (7 dias após a data de empréstimo)
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(parsedEmprestimoDate);
+    calendar.add(Calendar.DAY_OF_YEAR, 7);
+    java.sql.Date sqlDateDevolucao = new java.sql.Date(calendar.getTimeInMillis());
+
+    // Criar um objeto de Empréstimo com os dados do formulário
+    Emprestimos emprestimo = new Emprestimos(0, getFerramentaId(ferramentaSelecionada), ferramentaSelecionada, sqlDateEmprestimo, sqlDateDevolucao, getUsuarioId(amigoSelecionado), "Emprestado");
+
+    // Chamar o método do DAO para registrar o empréstimo
+    EmprestimosDAO.criarEmprestimo(conexao, emprestimo, getUsuarioId(amigoSelecionado));
+
+    // Exibir uma mensagem de sucesso
+    JOptionPane.showMessageDialog(this, "Empréstimo registrado com sucesso.");
+} catch (ParseException e) {
+    // Em caso de erro de parsing de data, exibir uma mensagem de erro
+    JOptionPane.showMessageDialog(this, "Erro ao converter data: " + e.getMessage());
+} catch (SQLException e) {
+    // Em caso de erro de SQL, exibir uma mensagem de erro
+    JOptionPane.showMessageDialog(this, "Erro ao registrar empréstimo: " + e.getMessage());
+}
 }
 
 // Método auxiliar para obter o ID da ferramenta pelo nome
