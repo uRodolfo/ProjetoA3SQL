@@ -22,7 +22,6 @@ Visao\gerenciarAmigo.class
 Visao\emprestimoPorAmigo.class
 Visao\excluirFerramenta$2.class
 Visao\cadastrarFerramentas$5.class
-Visao\registroEmprestimo$18.class
 Visao\cadastrarAmigo$4.class
 Visao\registroEmprestimo$2.class
 DAO\EmprestimosDAO.class
