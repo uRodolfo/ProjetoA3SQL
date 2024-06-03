@@ -1,22 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Visao;
 
-/**
- *
- * @author maria
- */
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import projetodb.projetoa3sql.Conexao;
+
 public class gerenciarFerramentas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form gerenciarFerramentas
-     */
+    private Connection conexao;
+
     public gerenciarFerramentas() {
         initComponents();
+        conectarBanco();
     }
 
+    private void conectarBanco() {
+        try {
+            conexao = Conexao.conectar();
+            System.out.println("Conexão com o banco de dados estabelecida.");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados: " + ex.getMessage());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,13 +35,14 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TabelaFerramentas = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        autualizarBD = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gerenciar Ferramentas");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TabelaFerramentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -58,13 +67,20 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        TabelaFerramentas.setShowGrid(true);
+        jScrollPane1.setViewportView(TabelaFerramentas);
 
-        jButton1.setText("Excluir Ferramenta");
+        jButton1.setText("Excluir Ferramentas");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        autualizarBD.setText("Atualizar banco de dados");
+        autualizarBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                autualizarBDActionPerformed(evt);
             }
         });
 
@@ -73,22 +89,30 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(226, 226, 226)
+                        .addComponent(autualizarBD)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(241, 241, 241)
+                .addGap(237, 237, 237)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(47, 47, 47)
+                .addComponent(autualizarBD)
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
                 .addComponent(jButton1)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         pack();
@@ -98,6 +122,25 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
         // TODO add your handling code here:
         new excluirFerramenta().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void autualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBDActionPerformed
+  String sql = "SELECT * FROM ferramentas";
+        try {
+            PreparedStatement pst = conexao.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            DefaultTableModel model = (DefaultTableModel) TabelaFerramentas.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                model.addRow(new Object[]{rs.getInt("id_ferramenta"), rs.getString("nome_ferramenta"), rs.getString("marca_ferramenta"), rs.getDouble("preco")});
+            }
+
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao atualizar a tabela de ferramentas: " + ex.getMessage());
+        }
+        
+    }//GEN-LAST:event_autualizarBDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,8 +178,9 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TabelaFerramentas;
+    private javax.swing.JButton autualizarBD;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

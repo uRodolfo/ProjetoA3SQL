@@ -6,20 +6,50 @@ package Visao;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import javax.swing.JTextField; 
+import projetodb.projetoa3sql.Conexao;
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import Controle.AmigosControle;
+import DAO.AmigosDAO;
+import Modelo.Amigos;
+import projetodb.projetoa3sql.Conexao;
+import javax.swing.JOptionPane;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import DAO.FerramentasDAO;
+import Controle.FerramentasControle;
+import projetodb.projetoa3sql.Conexao;
 /**
  *
  * @author maria
  */
 public class excluirFerramenta extends javax.swing.JFrame {
 
-    /**
-     * Creates new form excluirFerramenta
-     */
-    public excluirFerramenta() {
-        initComponents();
-    }
+     private Connection conexao;
 
+    public excluirFerramenta() {
+        this.conexao = conexao;     
+        initComponents();
+        conectarBanco();
+    }
+private void conectarBanco() {
+        try {
+            conexao = Conexao.conectar();
+            System.out.println("Conexão com o banco de dados estabelecida.");
+            updateCombo(); // Atualiza a ComboBox após estabelecer a conexão
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados: " + ex.getMessage());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,6 +62,7 @@ public class excluirFerramenta extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         boxExcluirFerramenta = new javax.swing.JComboBox<>();
         btnExcluir = new javax.swing.JButton();
+        autualizarBD = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Excluir Ferramenta");
@@ -52,6 +83,13 @@ public class excluirFerramenta extends javax.swing.JFrame {
             }
         });
 
+        autualizarBD.setText("Atualizar banco de dados");
+        autualizarBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                autualizarBDActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -64,6 +102,9 @@ public class excluirFerramenta extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(boxExcluirFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(autualizarBD))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(152, 152, 152)
                         .addComponent(btnExcluir)))
                 .addContainerGap(55, Short.MAX_VALUE))
@@ -71,39 +112,76 @@ public class excluirFerramenta extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(36, 36, 36)
+                .addComponent(autualizarBD)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(boxExcluirFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
+                .addGap(54, 54, 54)
                 .addComponent(btnExcluir)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
-        // Suponha que seu JComboBox se chame comboBoxAmigos e o JButton se chame btnExcluir
-btnExcluir.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        // Obtenha o amigo selecionado no JComboBox
-        String amigoSelecionado = (String) boxExcluirFerramenta.getSelectedItem();
-        
-        // Implemente a lógica para excluir o amigo do banco de dados aqui
-        // ...
+        String ferramentaSelecionada = (String) boxExcluirFerramenta.getSelectedItem();
 
-        // Após excluir do banco de dados, remova o item do JComboBox
-        boxExcluirFerramenta.removeItem(amigoSelecionado);
-    }
-});
+        if (ferramentaSelecionada != null) {
+            String sqlDelete = "DELETE FROM ferramentas WHERE nome_ferramenta = ?";
+
+            try (PreparedStatement pstDelete = conexao.prepareStatement(sqlDelete)) {
+                pstDelete.setString(1, ferramentaSelecionada);
+                int affectedRows = pstDelete.executeUpdate();
+
+                if (affectedRows > 0) {
+                    JOptionPane.showMessageDialog(this, "Ferramenta excluída com sucesso.");
+                    updateCombo();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Nenhuma ferramenta encontrada com esse nome.");
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Esta Ferramenta pertence a um emprestimo, nao pode ser deletada ");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione uma ferramenta para excluir.");
+        }
+    
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void boxExcluirFerramentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxExcluirFerramentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_boxExcluirFerramentaActionPerformed
 
+    private void autualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBDActionPerformed
+        updateCombo();          
+    }//GEN-LAST:event_autualizarBDActionPerformed
+     public void updateCombo() {
+        System.out.println("Atualizando ComboBox");
+
+        if (conexao == null) {
+            JOptionPane.showMessageDialog(this, "Erro: Conexão ao banco de dados não estabelecida.");
+            return;
+        }
+
+        String sqlNomes = "SELECT nome_ferramenta FROM ferramentas";
+
+        try (PreparedStatement pstNomes = conexao.prepareStatement(sqlNomes);
+             ResultSet rsNomes = pstNomes.executeQuery()) {
+
+            boxExcluirFerramenta.removeAllItems(); // Limpar os itens existentes na combobox
+            while (rsNomes.next()) {
+                String nome = rsNomes.getString("nome_ferramenta");
+                System.out.println("Adicionando nome: " + nome);
+                boxExcluirFerramenta.addItem(nome);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao atualizar ComboBox: " + e.getMessage());
+        }
+    }
+   
     /**
      * @param args the command line arguments
      */
@@ -140,6 +218,7 @@ btnExcluir.addActionListener(new ActionListener() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton autualizarBD;
     private javax.swing.JComboBox<String> boxExcluirFerramenta;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JLabel jLabel1;

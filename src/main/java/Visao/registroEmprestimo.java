@@ -104,6 +104,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema de Empréstimo de Ferramentas");
+        setBackground(new java.awt.Color(204, 0, 51));
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registro de Empréstimo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
@@ -155,7 +156,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel9.setText("Exemplo: 2024-06-02 (dia 2 de junho de 2024)");
 
-        autualizarBanco.setText("Autualizar banco de dados");
+        autualizarBanco.setText("Atualizar banco de dados");
         autualizarBanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autualizarBancoActionPerformed(evt);
@@ -189,7 +190,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(jLabel8))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 244, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(autualizarBanco))
@@ -199,7 +200,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(autualizarBanco)
-                .addGap(29, 29, 29)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(itemAmigoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -281,7 +282,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 251, Short.MAX_VALUE)))
+                        .addGap(0, 236, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(319, 319, 319)
@@ -394,18 +395,18 @@ public class registroEmprestimo extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addGap(140, 140, 140)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(201, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGap(42, 42, 42)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -415,43 +416,55 @@ public class registroEmprestimo extends javax.swing.JFrame {
 
     private void buttonRegistrarEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistrarEmprestimoActionPerformed
      try {
-    // Obter os dados do formulário
-    String amigoSelecionado = (String) itemAmigoRegistro.getSelectedItem();
-    String ferramentaSelecionada = (String) itemFerramenta.getSelectedItem();
-    String dataEmprestimoStr = (String) dataEmprestimo.getText();
+        // Obter os dados do formulário
+        String amigoSelecionado = (String) itemAmigoRegistro.getSelectedItem();
+        String ferramentaSelecionada = (String) itemFerramenta.getSelectedItem();
+        String dataEmprestimoStr = (String) dataEmprestimo.getText();
 
-    // Verificar se todos os campos foram preenchidos
-    if (amigoSelecionado.isEmpty() || ferramentaSelecionada.isEmpty() || dataEmprestimoStr.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.");
-        return;
+        // Verificar se todos os campos foram preenchidos
+        if (amigoSelecionado.isEmpty() || ferramentaSelecionada.isEmpty() || dataEmprestimoStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.");
+            return;
+        }
+
+        // Converter a data de empréstimo para o formato de data do SQL
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date parsedEmprestimoDate = format.parse(dataEmprestimoStr);
+        java.sql.Date sqlDateEmprestimo = new java.sql.Date(parsedEmprestimoDate.getTime());
+
+        // Calcular a data de devolução esperada (7 dias após a data de empréstimo)
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(parsedEmprestimoDate);
+        calendar.add(Calendar.DAY_OF_YEAR, 7);
+        java.sql.Date sqlDateDevolucao = new java.sql.Date(calendar.getTimeInMillis());
+
+        // Verificar se a data atual é posterior à data de devolução esperada
+        Calendar dataAtual = Calendar.getInstance();
+        String statusEmprestimo;
+        if (dataAtual.after(calendar)) {
+            // Se sim, definir o status do empréstimo como atrasado
+            statusEmprestimo = "Atrasado";
+        } else {
+            // Se não, definir o status do empréstimo como em dia
+            statusEmprestimo = "Em dia";
+        }
+
+        // Criar um objeto de Empréstimo com os dados do formulário
+        Emprestimos emprestimo = new Emprestimos(0, getFerramentaId(ferramentaSelecionada), ferramentaSelecionada, sqlDateEmprestimo, sqlDateDevolucao, getUsuarioId(amigoSelecionado), statusEmprestimo);
+
+        // Chamar o método do DAO para registrar o empréstimo
+        EmprestimosDAO.criarEmprestimo(conexao, emprestimo, getUsuarioId(amigoSelecionado));
+
+        // Exibir uma mensagem de sucesso
+        JOptionPane.showMessageDialog(this, "Empréstimo registrado com sucesso.");
+    } catch (ParseException e) {
+        // Em caso de erro de parsing de data, exibir uma mensagem de erro
+        JOptionPane.showMessageDialog(this, "Erro ao converter data: " + e.getMessage());
+    } catch (SQLException e) {
+        // Em caso de erro de SQL, exibir uma mensagem de erro
+        JOptionPane.showMessageDialog(this, "Erro ao registrar empréstimo: " + e.getMessage());
     }
 
-    // Converter a data de empréstimo para o formato de data do SQL
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-    java.util.Date parsedEmprestimoDate = format.parse(dataEmprestimoStr);
-    java.sql.Date sqlDateEmprestimo = new java.sql.Date(parsedEmprestimoDate.getTime());
-
-    // Calcular a data de devolução esperada (7 dias após a data de empréstimo)
-    Calendar calendar = Calendar.getInstance();
-    calendar.setTime(parsedEmprestimoDate);
-    calendar.add(Calendar.DAY_OF_YEAR, 7);
-    java.sql.Date sqlDateDevolucao = new java.sql.Date(calendar.getTimeInMillis());
-
-    // Criar um objeto de Empréstimo com os dados do formulário
-    Emprestimos emprestimo = new Emprestimos(0, getFerramentaId(ferramentaSelecionada), ferramentaSelecionada, sqlDateEmprestimo, sqlDateDevolucao, getUsuarioId(amigoSelecionado), "Emprestado");
-
-    // Chamar o método do DAO para registrar o empréstimo
-    EmprestimosDAO.criarEmprestimo(conexao, emprestimo, getUsuarioId(amigoSelecionado));
-
-    // Exibir uma mensagem de sucesso
-    JOptionPane.showMessageDialog(this, "Empréstimo registrado com sucesso.");
-} catch (ParseException e) {
-    // Em caso de erro de parsing de data, exibir uma mensagem de erro
-    JOptionPane.showMessageDialog(this, "Erro ao converter data: " + e.getMessage());
-} catch (SQLException e) {
-    // Em caso de erro de SQL, exibir uma mensagem de erro
-    JOptionPane.showMessageDialog(this, "Erro ao registrar empréstimo: " + e.getMessage());
-}
 }
 
 // Método auxiliar para obter o ID da ferramenta pelo nome
@@ -610,10 +623,8 @@ public void updateCombo() {
         }
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(this, "Erro ao realizar a devolução: " + e.getMessage());
-    }
-
     }//GEN-LAST:event_buttonRegistrarDevolucaoActionPerformed
-
+ }
     private void itemAmigoDevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAmigoDevolucaoActionPerformed
        String nomeSelecionado = (String) itemAmigoDevolucao.getSelectedItem();
     JTFAmigo.setText(nomeSelecionado);

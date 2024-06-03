@@ -32,6 +32,7 @@ Modelo\Ferramentas.class
 Visao\cadastrarFerramentas$1.class
 Visao\gerenciarAmigo$1.class
 projetodb\projetoa3sql\ProjetoA3SQL$1.class
+Visao\gerenciarFerramentas$4.class
 Visao\excluirAmigo$2.class
 Visao\registroEmprestimo$12.class
 Visao\relatorioFerramenta$2.class

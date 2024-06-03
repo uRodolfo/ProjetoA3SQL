@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -64,7 +65,7 @@ public class EmprestimosDAO {
     }
 
     public static void excluirEmprestimo(Connection conexao, int id) throws SQLException {
-        String sql = "DELETE FROM Emprestimos WHERE nome_usuario = ?";
+        String sql = "DELETE FROM Emprestimos WHERE id_emprestimo = ?";
         try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
@@ -72,26 +73,50 @@ public class EmprestimosDAO {
         }
     }
 
-   public static List<Emprestimos> listarEmprestimos(Connection conexao) throws SQLException {
-    List<Emprestimos> emprestimos = new ArrayList<>();
-    String sql = "SELECT * FROM Emprestimos";
-    try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
-        ResultSet rs = pstmt.executeQuery();
-        while (rs.next()) {
-            Emprestimos emprestimo = new Emprestimos(
-                rs.getInt("id_emprestimo"),
-                rs.getInt("id_ferramenta"),
-                rs.getString("nome_ferramenta"),
-                rs.getDate("data_emprestimo"),
-                rs.getDate("data_devolucao_esperada"),
-                rs.getInt("id_usuario"),
-                rs.getString("status_emprestimo")
-            );
-            emprestimos.add(emprestimo);
+    public static List<Emprestimos> listarEmprestimos(Connection conexao) throws SQLException {
+        List<Emprestimos> emprestimos = new ArrayList<>();
+        String sql = "SELECT * FROM Emprestimos";
+        try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Emprestimos emprestimo = new Emprestimos(
+                    rs.getInt("id_emprestimo"),
+                    rs.getInt("id_ferramenta"),
+                    rs.getString("nome_ferramenta"),
+                    rs.getDate("data_emprestimo"),
+                    rs.getDate("data_devolucao_esperada"),
+                    rs.getInt("id_usuario"),
+                    rs.getString("status_emprestimo")
+                );
+                emprestimos.add(emprestimo);
+            }
+        }
+        return emprestimos;
+    }
+    
+    public static void atualizarStatusEmprestimos(Connection conexao) throws SQLException {
+        String sqlSelect = "SELECT id_emprestimo, data_devolucao_esperada FROM Emprestimos";
+        String sqlUpdate = "UPDATE Emprestimos SET status_emprestimo = ? WHERE id_emprestimo = ?";
+
+        try (
+            PreparedStatement pstSelect = conexao.prepareStatement(sqlSelect);
+            ResultSet rs = pstSelect.executeQuery();
+            PreparedStatement pstUpdate = conexao.prepareStatement(sqlUpdate)
+        ) {
+            Date dataAtual = new Date(System.currentTimeMillis());
+
+            while (rs.next()) {
+                int idEmprestimo = rs.getInt("id_emprestimo");
+                Date dataDevolucao = rs.getDate("data_devolucao_esperada");
+                String novoStatus = dataAtual.after(dataDevolucao) ? "Atrasado" : "Em dia";
+
+                pstUpdate.setString(1, novoStatus);
+                pstUpdate.setInt(2, idEmprestimo);
+                pstUpdate.executeUpdate();
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Erro ao atualizar status dos empréstimos: {0}", e.getMessage());
+            throw e;
         }
     }
-    return emprestimos;
-    
-    }
-  
 }

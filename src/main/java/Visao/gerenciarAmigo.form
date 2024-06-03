@@ -155,7 +155,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="autualizarBD">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Autualizar banco de dados"/>
+        <Property name="text" type="java.lang.String" value="Atualizar banco de dados"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autualizarBDActionPerformed"/>

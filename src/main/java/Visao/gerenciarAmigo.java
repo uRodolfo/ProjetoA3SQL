@@ -116,7 +116,7 @@ private int idUsuario;
         TabelaAmigos.setShowGrid(true);
         jScrollPane3.setViewportView(TabelaAmigos);
 
-        autualizarBD.setText("Autualizar banco de dados");
+        autualizarBD.setText("Atualizar banco de dados");
         autualizarBD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autualizarBDActionPerformed(evt);
