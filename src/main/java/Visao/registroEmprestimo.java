@@ -25,12 +25,14 @@ import javax.swing.JOptionPane;
  */
 public class registroEmprestimo extends javax.swing.JFrame {
     private Connection conexao;
-    private AmigosControle amigoControle; // Adicione essa linha
-    private JTextField JTFAmigo; // Adicione essa linha
-
+    private AmigosControle amigoControle;
+    private JTextField JTFAmigo; // Declare JTFAmigo as a class-level variable
+    private JTextField JTFFerramenta;
+    
     public registroEmprestimo() {
         initComponents();
         JTFAmigo = new JTextField(); // Inicialize JTFAmigo aqui
+        JTFFerramenta = new JTextField();
         try {
             // Obtendo a conexão com o banco de dados
             conexao = Conexao.conectar();
@@ -43,6 +45,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
 
             // Atualiza a JComboBox ao iniciar a aplicação
             updateCombo();
+            updateComboFerramentas();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados: " + e.getMessage());
         }
@@ -70,8 +73,8 @@ public class registroEmprestimo extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        itemAmigoDevolucao = new javax.swing.JComboBox<>();
+        itemFerramentaDevolucao = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         buttonRegistrarDevolucao = new javax.swing.JButton();
         dataDevolucao = new javax.swing.JFormattedTextField();
@@ -122,6 +125,11 @@ public class registroEmprestimo extends javax.swing.JFrame {
         });
 
         itemFerramenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        itemFerramenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemFerramentaActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Data de Empréstimo:");
 
@@ -185,9 +193,15 @@ public class registroEmprestimo extends javax.swing.JFrame {
 
         jLabel7.setText("Ferramenta:");
 
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        itemAmigoDevolucao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemAmigoDevolucaoActionPerformed(evt);
+            }
+        });
+
+        itemFerramentaDevolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemFerramentaDevolucaoActionPerformed(evt);
             }
         });
 
@@ -212,7 +226,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(40, 40, 40)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(itemAmigoDevolucao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
@@ -221,7 +235,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(itemFerramentaDevolucao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -234,11 +248,11 @@ public class registroEmprestimo extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(itemAmigoDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(itemFerramentaDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -397,12 +411,32 @@ private void updateCombo() {
         while (rs.next()) {
             String nome = rs.getString("nome_usuario");
             System.out.println("Adicionando nome: " + nome);
-            itemAmigoRegistro.addItem(nome); // Adiciona o nome do amigo à JComboBox
+            itemAmigoRegistro.addItem(nome); 
+            itemAmigoDevolucao.addItem(nome);
         }
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(this, "Erro ao carregar amigos: " + e.getMessage());
     }
 }
+
+  private void updateComboFerramentas() {
+        System.out.println("Atualizando ComboBox de Ferramentas");
+        String sql = "SELECT nome_ferramenta FROM ferramentas"; // Seleciona os nomes das ferramentas
+        try (PreparedStatement pst = conexao.prepareStatement(sql);
+             ResultSet rs = pst.executeQuery()) {
+
+            itemFerramenta.removeAllItems(); // Limpar os itens existentes na combobox
+            while (rs.next()) {
+                String nome = rs.getString("nome_ferramenta");
+                System.out.println("Adicionando nome: " + nome);
+                itemFerramenta.addItem(nome); 
+                itemFerramentaDevolucao.addItem(nome);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar ferramentas: " + e.getMessage());
+        }
+    }
+  
     private void menuItemCadastrarAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarAmigoActionPerformed
         // TODO add your handling code here:
         new cadastrarAmigo().setVisible(true);
@@ -467,8 +501,21 @@ private void updateCombo() {
     }//GEN-LAST:event_buttonRegistrarDevolucaoActionPerformed
 
     private void itemAmigoDevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAmigoDevolucaoActionPerformed
-        // TODO add your handling code here:
+       String nomeSelecionado = (String) itemAmigoDevolucao.getSelectedItem();
+    JTFAmigo.setText(nomeSelecionado);
+
+
     }//GEN-LAST:event_itemAmigoDevolucaoActionPerformed
+
+    private void itemFerramentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFerramentaActionPerformed
+       String nomeSelecionado = (String) itemFerramenta.getSelectedItem();
+        JTFFerramenta.setText(nomeSelecionado);
+    }//GEN-LAST:event_itemFerramentaActionPerformed
+
+    private void itemFerramentaDevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFerramentaDevolucaoActionPerformed
+       String nomeSelecionado = (String) itemFerramentaDevolucao.getSelectedItem();
+        JTFFerramenta.setText(nomeSelecionado);
+    }//GEN-LAST:event_itemFerramentaDevolucaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -512,10 +559,10 @@ private void updateCombo() {
     private javax.swing.JButton buttonRegistrarEmprestimo;
     private javax.swing.JFormattedTextField dataDevolucao;
     private javax.swing.JFormattedTextField dataEmprestimo;
+    private javax.swing.JComboBox<String> itemAmigoDevolucao;
     private javax.swing.JComboBox<String> itemAmigoRegistro;
     private javax.swing.JComboBox<String> itemFerramenta;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> itemFerramentaDevolucao;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
