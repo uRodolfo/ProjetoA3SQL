@@ -4,21 +4,54 @@
  */
 package Visao;
 
+
+import javax.swing.JTextField; 
+import projetodb.projetoa3sql.Conexao;
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import Controle.AmigosControle;
+import DAO.AmigosDAO;
+import Modelo.Amigos;
+import projetodb.projetoa3sql.Conexao;
+import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 /**
  *
  * @author maria
  */
 public class excluirAmigo extends javax.swing.JFrame {
-
-    /**
-     * Creates new form excluirAmigo
-     */
+private Connection conexao;
+    private JTextField JTFAmigo;
+    private JTextField JTFID;
+    
     public excluirAmigo() {
         initComponents();
+        JTFAmigo = new JTextField(); 
+         JTFID = new JTextField(); // Inicialize JTFID aqui
+        try {
+            
+           
+            conexao = Conexao.conectar();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados: " + e.getMessage());
+        }
     }
+
+    // Restante do código da classe...
+
+    // Restante do código da classe...
+
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,9 +65,18 @@ public class excluirAmigo extends javax.swing.JFrame {
         comboBoxAmigos = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         btnExcluir = new javax.swing.JButton();
+        atualizarBD = new javax.swing.JButton();
+        comboBoxId = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Excluir Amigo");
+
+        comboBoxAmigos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxAmigosActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Selecione um amigo:");
@@ -46,6 +88,22 @@ public class excluirAmigo extends javax.swing.JFrame {
             }
         });
 
+        atualizarBD.setText("Atualizar Banco de Dados");
+        atualizarBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarBDActionPerformed(evt);
+            }
+        });
+
+        comboBoxId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxIdActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("Selecione o ID:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -56,46 +114,111 @@ public class excluirAmigo extends javax.swing.JFrame {
                         .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(comboBoxAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(comboBoxAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboBoxId, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(191, 191, 191)
+                        .addGap(147, 147, 147)
+                        .addComponent(atualizarBD))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(193, 193, 193)
                         .addComponent(btnExcluir)))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(50, 50, 50)
+                .addComponent(atualizarBD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(comboBoxAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(10, 10, 10)
+                .addComponent(comboBoxId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(btnExcluir)
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addGap(56, 56, 56))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
-        // Suponha que seu JComboBox se chame comboBoxAmigos e o JButton se chame btnExcluir
-btnExcluir.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        // Obtenha o amigo selecionado no JComboBox
-        String amigoSelecionado = (String) comboBoxAmigos.getSelectedItem();
-        
-        // Implemente a lógica para excluir o amigo do banco de dados aqui
-        // ...
-
-        // Após excluir do banco de dados, remova o item do JComboBox
-        comboBoxAmigos.removeItem(amigoSelecionado);
-    }
-});
-
-        
+     String amigoSelecionado = (String) comboBoxAmigos.getSelectedItem();
+        String idSelecionado = (String) comboBoxId.getSelectedItem();
+        if (amigoSelecionado != null && idSelecionado != null) {
+            try {
+                String sql = "DELETE FROM amigos WHERE id_usuario = ? AND nome_usuario = ?";
+                try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+                    stmt.setInt(1, Integer.parseInt(idSelecionado));
+                    stmt.setString(2, amigoSelecionado);
+                    int rowsAffected = stmt.executeUpdate();
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(this, "Amigo excluído com sucesso.");
+                        comboBoxAmigos.removeItem(amigoSelecionado);
+                        comboBoxId.removeItem(idSelecionado);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Erro ao excluir amigo.");
+                    }
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir amigo: " + ex.getMessage());
+            }
+        }
+    
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void comboBoxAmigosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAmigosActionPerformed
+      String nomeSelecionado = (String) comboBoxAmigos.getSelectedItem(); 
+    JTFAmigo.setText(nomeSelecionado);
+    }//GEN-LAST:event_comboBoxAmigosActionPerformed
+
+    private void atualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarBDActionPerformed
+       updateCombo();
+    }//GEN-LAST:event_atualizarBDActionPerformed
+
+    private void comboBoxIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIdActionPerformed
+        String idSelecionado = (String) comboBoxId.getSelectedItem(); 
+    JTFID.setText(idSelecionado);
+    }//GEN-LAST:event_comboBoxIdActionPerformed
+public void updateCombo() {
+           System.out.println("Atualizando ComboBox");
+    
+    String sqlNomes = "SELECT nome_usuario FROM amigos"; // Seleciona os nomes dos amigos
+    String sqlIds = "SELECT id_usuario FROM amigos"; // Seleciona os IDs dos amigos
+
+    try {
+        // Atualizando a comboBoxAmigos com os nomes dos amigos
+        try (PreparedStatement pstNomes = conexao.prepareStatement(sqlNomes);
+             ResultSet rsNomes = pstNomes.executeQuery()) {
+            
+            comboBoxAmigos.removeAllItems(); // Limpar os itens existentes na combobox
+            while (rsNomes.next()) {
+                String nome = rsNomes.getString("nome_usuario");
+                System.out.println("Adicionando nome: " + nome);
+                comboBoxAmigos.addItem(nome);
+            }
+        }
+
+        // Atualizando a comboBoxId com os IDs dos amigos
+        try (PreparedStatement pstIds = conexao.prepareStatement(sqlIds);
+             ResultSet rsIds = pstIds.executeQuery()) {
+            
+            comboBoxId.removeAllItems(); // Limpar os itens existentes na combobox
+            while (rsIds.next()) {
+                int id = rsIds.getInt("id_usuario");
+                System.out.println("Adicionando ID: " + id);
+                comboBoxId.addItem(String.valueOf(id));
+            }
+        }   
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Erro ao carregar amigos: " + e.getMessage());
+    }
+
+}
     /**
      * @param args the command line arguments
      */
@@ -132,8 +255,11 @@ btnExcluir.addActionListener(new ActionListener() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton atualizarBD;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JComboBox<String> comboBoxAmigos;
+    private javax.swing.JComboBox<String> comboBoxId;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

@@ -99,7 +99,6 @@ public class registroEmprestimo extends javax.swing.JFrame {
         menuREativos = new javax.swing.JMenuItem();
         menuRHistoricos = new javax.swing.JMenuItem();
         menuRDevedores = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
 
         jFormattedTextField1.setText("jFormattedTextField1");
 
@@ -190,7 +189,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(jLabel8))
-                        .addGap(0, 259, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(autualizarBanco))
@@ -281,8 +280,8 @@ public class registroEmprestimo extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
-                            .addComponent(jLabel10))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 251, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(319, 319, 319)
@@ -385,14 +384,6 @@ public class registroEmprestimo extends javax.swing.JFrame {
             }
         });
         jMenu3.add(menuRDevedores);
-
-        jMenuItem4.setText("Empréstimos por Amigo");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem4);
 
         jMenuBar1.add(jMenu3);
 
@@ -579,11 +570,6 @@ public void updateCombo() {
         new relatorioHistoricoEmprestimo().setVisible(true);
     }//GEN-LAST:event_menuRHistoricosActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-        new emprestimoPorAmigo().setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void buttonRegistrarDevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistrarDevolucaoActionPerformed
                                                                                                   
     try {
@@ -735,7 +721,6 @@ public void updateCombo() {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JMenu menuCadastrar;

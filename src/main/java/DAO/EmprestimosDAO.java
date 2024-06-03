@@ -64,7 +64,7 @@ public class EmprestimosDAO {
     }
 
     public static void excluirEmprestimo(Connection conexao, int id) throws SQLException {
-        String sql = "DELETE FROM Emprestimos WHERE id_emprestimo = ?";
+        String sql = "DELETE FROM Emprestimos WHERE nome_usuario = ?";
         try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
@@ -93,4 +93,5 @@ public class EmprestimosDAO {
     return emprestimos;
     
     }
+  
 }

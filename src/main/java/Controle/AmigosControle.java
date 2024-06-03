@@ -16,11 +16,6 @@ public class AmigosControle {
         amigoDAO.adicionarAmigo(amigo, idUsuario);
     }
 
-    // Correção aqui: o método deve retornar List<Integer>, não List<Amigos>
-    public List<Integer> listarTodosIdsAmigos() throws SQLException {
-        return amigoDAO.listarTodosIdsAmigos();
-    }
-
     public List<Amigos> listarAmigos(int idUsuario) throws SQLException {
         return amigoDAO.listarAmigos(idUsuario);
     }
@@ -29,14 +24,12 @@ public class AmigosControle {
         amigoDAO.atualizarAmigo(amigo);
     }
 
-    public void deletarAmigo(int id) throws SQLException {
-        amigoDAO.deletarAmigo(id);
+    // Atualizado para aceitar id e nomeUsuario
+    public void deletarAmigo(int id, String nomeUsuario) throws SQLException {
+        amigoDAO.deletarAmigo(id, nomeUsuario);
     }
 
     public void adicionarUsuario(int idUsuario, String nomeUsuario, String telefoneUsuario) throws SQLException {
         amigoDAO.adicionarUsuario(idUsuario, nomeUsuario, telefoneUsuario);
     }
 }
-
-
-
