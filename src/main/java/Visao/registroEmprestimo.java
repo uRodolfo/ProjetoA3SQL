@@ -604,7 +604,7 @@ public void updateCombo() {
         int idFerramenta = getFerramentaId(ferramentaSelecionada);
 
         // Construir a consulta SQL para remover o empréstimo
-        String sql = "UPDATE Emprestimos SET status_emprestimo = 'devolvido' WHERE id_usuario = ? AND id_ferramenta = ?";
+        String sql = "UPDATE Emprestimos SET status_emprestimo = 'Devolvido' WHERE id_usuario = ? AND id_ferramenta = ?";
 
         // Preparar a declaração SQL
         try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {

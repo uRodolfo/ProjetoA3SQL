@@ -40,6 +40,7 @@ Visao\registroEmprestimo$12.class
 Visao\relatorioFerramenta$2.class
 Visao\cadastrarAmigo.class
 Visao\excluirFerramenta$3.class
+Visao\relatorioDevedores$3.class
 Visao\cadastrarAmigo$1.class
 Visao\registroEmprestimo$17.class
 Controle\AmigosControle.class

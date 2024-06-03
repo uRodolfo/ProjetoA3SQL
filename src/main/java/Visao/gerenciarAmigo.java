@@ -184,8 +184,6 @@ private int idUsuario;
             model.addRow(new Object[]{rs.getInt("id_usuario"), rs.getString("nome_usuario"), rs.getString("telefone_usuario")});
         }
         
-        JOptionPane.showMessageDialog(this, "Tabela de amigos atualizada com sucesso.");
-        
         // Fechar a conexão
         con.close();
     } catch (SQLException ex) {
