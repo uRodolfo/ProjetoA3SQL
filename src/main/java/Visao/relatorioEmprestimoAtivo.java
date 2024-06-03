@@ -5,6 +5,25 @@
 package Visao;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JTextField; 
+import Controle.AmigosControle;
+import DAO.AmigosDAO;
+import projetodb.projetoa3sql.Conexao;
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import Modelo.Emprestimos;
+import DAO.EmprestimosDAO;
+import java.util.Calendar;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -32,6 +51,7 @@ public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tableEmprestimosAtivos = new javax.swing.JTable();
+        autualizarBD = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Relatório Empréstimos Ativos");
@@ -66,25 +86,76 @@ public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
         tableEmprestimosAtivos.setShowGrid(true);
         jScrollPane1.setViewportView(tableEmprestimosAtivos);
 
+        autualizarBD.setText("Atualizar banco de dados");
+        autualizarBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                autualizarBDActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(259, 259, 259)
+                .addComponent(autualizarBD)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(autualizarBD)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void autualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBDActionPerformed
+       try {
+        // 1. Estabelecer conexão com o banco de dados
+        Connection conexao = Conexao.conectar();
+
+        // 2. Escrever a consulta SQL para selecionar os empréstimos ativos com status "Em dia"
+        String sql = "SELECT e.id_emprestimo, u.nome_usuario AS Amigo, f.nome_ferramenta AS Ferramenta, e.data_emprestimo AS 'Data de Empréstimo', e.data_devolucao_esperada AS 'Devolução Prevista' FROM Emprestimos e " +
+                     "JOIN usuarios u ON e.id_usuario = u.id_usuario " +
+                     "JOIN ferramentas f ON e.id_ferramenta = f.id_ferramenta " +
+                     "WHERE e.status_emprestimo IN ('Em dia', 'Atrasado')";
+
+
+        // 3. Executar a consulta SQL
+        try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+
+            // Limpar a tabela antes de adicionar novos dados
+            DefaultTableModel model = (DefaultTableModel) tableEmprestimosAtivos.getModel();
+            model.setRowCount(0);
+
+            // Processar os resultados e preencher a tabela de empréstimos ativos
+            while (rs.next()) {
+                int id = rs.getInt("id_emprestimo");
+                String amigo = rs.getString("Amigo");
+                String ferramenta = rs.getString("Ferramenta");
+                String dataEmprestimo = rs.getString("Data de Empréstimo");
+                String devolucaoPrevista = rs.getString("Devolução Prevista");
+
+                Object[] rowData = {id, amigo, ferramenta, dataEmprestimo, devolucaoPrevista};
+                model.addRow(rowData);
+            }
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Erro ao recuperar dados dos empréstimos ativos: " + e.getMessage());
+    }
+
+    }//GEN-LAST:event_autualizarBDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,6 +194,7 @@ public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton autualizarBD;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableEmprestimosAtivos;
     // End of variables declaration//GEN-END:variables

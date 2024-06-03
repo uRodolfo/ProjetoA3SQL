@@ -18,6 +18,7 @@ Visao\registroEmprestimo$5.class
 Visao\relatorioFerramenta$1.class
 Controle\FerramentasControle.class
 Visao\gerenciarAmigo$5.class
+Visao\relatorioEmprestimoAtivo$3.class
 Visao\relatorioHistoricoEmprestimo$1.class
 Visao\gerenciarAmigo.class
 Visao\excluirFerramenta$2.class
@@ -61,6 +62,7 @@ Visao\cadastrarFerramentas$3.class
 Visao\relatorioDevedores.class
 Visao\registroEmprestimo$11.class
 Visao\relatorioFerramenta.class
+Visao\relatorioHistoricoEmprestimo$3.class
 Visao\registroEmprestimo$13.class
 Visao\cadastrarAmigo$2.class
 Visao\relatorioHistoricoEmprestimo.class

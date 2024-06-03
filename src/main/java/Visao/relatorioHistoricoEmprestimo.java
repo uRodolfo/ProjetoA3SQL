@@ -3,7 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Visao;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import projetodb.projetoa3sql.Conexao;
 /**
  *
  * @author maria
@@ -27,59 +33,110 @@ public class relatorioHistoricoEmprestimo extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableEmprestimosAtivos = new javax.swing.JTable();
+        autualizarBD = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Histórico de Empréstimos");
         setResizable(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableEmprestimosAtivos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Telefone", "Ferramenta", "Marca", "Custo de Aquisição", "Data de Empréstimo", "Data de Devolução"
+                "ID", "Nome", "Telefone", "Ferramenta", "Marca", "Custo de Aquisição", "Data de Empréstimo", "Data de Devolução Esperada", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        tableEmprestimosAtivos.setShowGrid(true);
+        jScrollPane1.setViewportView(tableEmprestimosAtivos);
+
+        autualizarBD.setText("Atualizar banco de dados");
+        autualizarBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                autualizarBDActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 922, Short.MAX_VALUE)
+                .addGap(578, 578, 578)
+                .addComponent(autualizarBD)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1447, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(autualizarBD)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void autualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBDActionPerformed
+try {
+        // 1. Estabelecer conexão com o banco de dados
+        Connection conexao = Conexao.conectar();
+
+        // 2. Escrever a consulta SQL para selecionar os empréstimos ativos com informações adicionais
+        String sql = "SELECT e.id_emprestimo, u.nome_usuario, u.telefone_usuario, f.nome_ferramenta, f.marca_ferramenta, f.preco, e.data_emprestimo, e.data_devolucao_esperada, e.status_emprestimo FROM Emprestimos e JOIN usuarios u ON e.id_usuario = u.id_usuario JOIN ferramentas f ON e.id_ferramenta = f.id_ferramenta";
+
+        // 3. Executar a consulta SQL
+        try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+
+            // Limpar a tabela antes de adicionar novos dados
+            DefaultTableModel model = (DefaultTableModel) tableEmprestimosAtivos.getModel();
+            model.setRowCount(0);
+
+            // Processar os resultados e preencher a tabela de empréstimos ativos
+            while (rs.next()) {
+                int id = rs.getInt("id_emprestimo");
+                String nomeUsuario = rs.getString("nome_usuario");
+                String telefoneUsuario = rs.getString("telefone_usuario");
+                String nomeFerramenta = rs.getString("nome_ferramenta");
+                String marcaFerramenta = rs.getString("marca_ferramenta");
+                double preco = rs.getDouble("preco");
+                String dataEmprestimo = rs.getString("data_emprestimo");
+                String dataDevolucaoEsperada = rs.getString("data_devolucao_esperada");
+                String statusEmprestimo = rs.getString("status_emprestimo");
+
+                Object[] rowData = {id, nomeUsuario, telefoneUsuario, nomeFerramenta, marcaFerramenta, preco, dataEmprestimo, dataDevolucaoEsperada, statusEmprestimo};
+                model.addRow(rowData);
+            }
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Erro ao recuperar dados dos empréstimos ativos: " + e.getMessage());
+    }
+    }//GEN-LAST:event_autualizarBDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,12 +169,14 @@ public class relatorioHistoricoEmprestimo extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new relatorioHistoricoEmprestimo().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton autualizarBD;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tableEmprestimosAtivos;
     // End of variables declaration//GEN-END:variables
 }
