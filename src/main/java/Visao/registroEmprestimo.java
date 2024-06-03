@@ -20,6 +20,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import javax.swing.JComboBox;
+
 
 /**
  * Registro de Empréstimo
@@ -74,6 +76,7 @@ public class registroEmprestimo extends javax.swing.JFrame {
         dataEmprestimo = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        autualizarBanco = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -81,7 +84,9 @@ public class registroEmprestimo extends javax.swing.JFrame {
         itemFerramentaDevolucao = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         buttonRegistrarDevolucao = new javax.swing.JButton();
-        dataDevolucao = new javax.swing.JFormattedTextField();
+        dataEmprestimo1 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCadastrar = new javax.swing.JMenu();
         menuItemCadastrarAmigo = new javax.swing.JMenuItem();
@@ -139,11 +144,24 @@ public class registroEmprestimo extends javax.swing.JFrame {
 
         jLabel3.setText("Data de Empréstimo:");
 
+        dataEmprestimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dataEmprestimoActionPerformed(evt);
+            }
+        });
+
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel8.setText("Escreva da seguinte forma: YYYY - MM - DD");
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel9.setText("Exemplo: 2024-06-02 (dia 2 de junho de 2024)");
+
+        autualizarBanco.setText("Autualizar banco de dados");
+        autualizarBanco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                autualizarBancoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -173,11 +191,16 @@ public class registroEmprestimo extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addComponent(jLabel8))
                         .addGap(0, 259, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(autualizarBanco))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addContainerGap()
+                .addComponent(autualizarBanco)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(itemAmigoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -224,7 +247,17 @@ public class registroEmprestimo extends javax.swing.JFrame {
             }
         });
 
-        dataDevolucao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        dataEmprestimo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dataEmprestimo1ActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jLabel10.setText("Escreva da seguinte forma: YYYY - MM - DD");
+
+        jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jLabel11.setText("Exemplo: 2024-06-02 (dia 2 de junho de 2024)");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -238,19 +271,23 @@ public class registroEmprestimo extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addComponent(itemAmigoDevolucao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(dataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(itemFerramentaDevolucao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(itemFerramentaDevolucao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(dataEmprestimo1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel10))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(319, 319, 319)
                 .addComponent(buttonRegistrarDevolucao)
-                .addGap(306, 306, 306))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,10 +303,13 @@ public class registroEmprestimo extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(dataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                    .addComponent(dataEmprestimo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addGap(18, 18, 18)
                 .addComponent(buttonRegistrarDevolucao)
-                .addGap(19, 19, 19))
+                .addGap(43, 43, 43))
         );
 
         menuCadastrar.setText("Cadastrar");
@@ -455,7 +495,7 @@ private int getUsuarioId(String nomeUsuario) throws SQLException {
     private void itemAmigoRegistroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_itemAmigoRegistroItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_itemAmigoRegistroItemStateChanged
-private void updateCombo() {
+public void updateCombo() {
           System.out.println("Atualizando ComboBox");
     String sql = "SELECT nome_usuario FROM amigos"; // Seleciona os nomes dos amigos
     try (PreparedStatement pst = conexao.prepareStatement(sql);
@@ -473,7 +513,8 @@ private void updateCombo() {
     }
 }
 
-  private void updateComboFerramentas() {
+  public void updateComboFerramentas() {
+      
         System.out.println("Atualizando ComboBox de Ferramentas");
         String sql = "SELECT nome_ferramenta FROM ferramentas"; // Seleciona os nomes das ferramentas
         try (PreparedStatement pst = conexao.prepareStatement(sql);
@@ -544,8 +585,47 @@ private void updateCombo() {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void buttonRegistrarDevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistrarDevolucaoActionPerformed
-        // TODO add your handling code heree:
-        JOptionPane.showMessageDialog(null, "Devolução registrada com sucesso.");
+                                                                                                  
+    try {
+        // Obter o nome do amigo selecionado
+        String amigoSelecionado = (String) itemAmigoDevolucao.getSelectedItem();
+        // Obter o nome da ferramenta selecionada
+        String ferramentaSelecionada = (String) itemFerramentaDevolucao.getSelectedItem();
+
+        // Verificar se um amigo e uma ferramenta foram selecionados
+        if (amigoSelecionado.isEmpty() || ferramentaSelecionada.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione um amigo e uma ferramenta para devolução.");
+            return;
+        }
+
+        // Obter o ID do usuário com base no nome do amigo selecionado
+        int idUsuario = getUsuarioId(amigoSelecionado);
+
+        // Obter o ID da ferramenta com base no nome da ferramenta selecionada
+        int idFerramenta = getFerramentaId(ferramentaSelecionada);
+
+        // Construir a consulta SQL para remover o empréstimo
+        String sql = "DELETE FROM Emprestimos WHERE id_usuario = ? AND id_ferramenta = ?";
+
+        // Preparar a declaração SQL
+        try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
+            pstmt.setInt(1, idUsuario);
+            pstmt.setInt(2, idFerramenta);
+
+            // Executar a declaração SQL
+            int rowsAffected = pstmt.executeUpdate();
+
+            // Verificar se a devolução foi bem-sucedida
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "Devolução realizada com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Não foram encontrados empréstimos para devolução.");
+            }
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Erro ao realizar a devolução: " + e.getMessage());
+    }
+
     }//GEN-LAST:event_buttonRegistrarDevolucaoActionPerformed
 
     private void itemAmigoDevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAmigoDevolucaoActionPerformed
@@ -556,7 +636,8 @@ private void updateCombo() {
     }//GEN-LAST:event_itemAmigoDevolucaoActionPerformed
 
     private void itemFerramentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFerramentaActionPerformed
-       String nomeSelecionado = (String) itemFerramenta.getSelectedItem();
+       
+        String nomeSelecionado = (String) itemFerramenta.getSelectedItem();
         JTFFerramenta.setText(nomeSelecionado);
     }//GEN-LAST:event_itemFerramentaActionPerformed
 
@@ -564,6 +645,30 @@ private void updateCombo() {
        String nomeSelecionado = (String) itemFerramentaDevolucao.getSelectedItem();
         JTFFerramenta.setText(nomeSelecionado);
     }//GEN-LAST:event_itemFerramentaDevolucaoActionPerformed
+
+    private void dataEmprestimo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataEmprestimo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dataEmprestimo1ActionPerformed
+
+    private void dataEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataEmprestimoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dataEmprestimoActionPerformed
+
+    private void autualizarBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBancoActionPerformed
+        registroEmprestimo registroEmprestimo = new registroEmprestimo();
+    registroEmprestimo.limparCombo(itemFerramenta);
+    registroEmprestimo.limparCombo(itemAmigoRegistro);
+    registroEmprestimo.limparCombo(itemAmigoDevolucao);
+    registroEmprestimo.limparCombo(itemFerramentaDevolucao);
+
+    updateCombo();
+    updateComboFerramentas();
+
+    }//GEN-LAST:event_autualizarBancoActionPerformed
+
+   public void limparCombo(JComboBox combo) {
+    combo.removeAllItems();
+}
 
     /**
      * @param args the command line arguments
@@ -603,16 +708,19 @@ private void updateCombo() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton autualizarBanco;
     private javax.swing.JButton buttonRegistrarDevolucao;
     private javax.swing.JButton buttonRegistrarEmprestimo;
-    private javax.swing.JFormattedTextField dataDevolucao;
     private javax.swing.JTextField dataEmprestimo;
+    private javax.swing.JTextField dataEmprestimo1;
     private javax.swing.JComboBox<String> itemAmigoDevolucao;
     private javax.swing.JComboBox<String> itemAmigoRegistro;
     private javax.swing.JComboBox<String> itemFerramenta;
     private javax.swing.JComboBox<String> itemFerramentaDevolucao;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

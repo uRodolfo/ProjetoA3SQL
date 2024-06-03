@@ -12,8 +12,8 @@ public class FerramentasControle {
         this.ferramentaDAO = ferramentaDAO;
     }
 
-    public void adicionarFerramenta(Ferramentas ferramenta, int quantidade) throws SQLException {
-        ferramentaDAO.adicionarFerramenta(ferramenta, quantidade);
+    public void adicionarFerramenta(Ferramentas ferramenta) throws SQLException {
+        ferramentaDAO.adicionarFerramenta(ferramenta);
     }
 
     public List<Ferramentas> listarFerramentas() throws SQLException {
@@ -26,5 +26,6 @@ public class FerramentasControle {
 
     public void deletarFerramenta(int id) throws SQLException {
         ferramentaDAO.deletarFerramenta(id);
+        
+        }
     }
-}

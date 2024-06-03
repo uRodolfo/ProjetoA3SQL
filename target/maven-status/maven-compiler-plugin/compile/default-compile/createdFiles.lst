@@ -1,6 +1,7 @@
 Visao\relatorioHistoricoEmprestimo$2.class
 Visao\excluirAmigo$1.class
 Visao\relatorioEmprestimoAtivo.class
+Visao\registroEmprestimo$19.class
 Visao\registroEmprestimo$4.class
 Visao\gerenciarFerramentas$1.class
 Visao\gerenciarAmigo$2.class
@@ -21,7 +22,7 @@ Visao\relatorioHistoricoEmprestimo$1.class
 Visao\gerenciarAmigo.class
 Visao\emprestimoPorAmigo.class
 Visao\excluirFerramenta$2.class
-Visao\cadastrarFerramentas$5.class
+Visao\registroEmprestimo$18.class
 Visao\cadastrarAmigo$4.class
 Visao\registroEmprestimo$2.class
 DAO\EmprestimosDAO.class
@@ -33,6 +34,7 @@ Visao\gerenciarAmigo$1.class
 projetodb\projetoa3sql\ProjetoA3SQL$1.class
 Visao\excluirAmigo$2.class
 Visao\registroEmprestimo$12.class
+Visao\registroEmprestimo$20.class
 Visao\relatorioFerramenta$2.class
 Visao\cadastrarAmigo.class
 Visao\excluirFerramenta$3.class

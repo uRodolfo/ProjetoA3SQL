@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JOptionPane; 
 import javax.swing.JOptionPane;
-
+import Visao.registroEmprestimo;
 
 
 /**
@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
  * @author maria
  */
 public class cadastrarFerramentas extends javax.swing.JFrame {
+registroEmprestimo registroEmprestimo = new registroEmprestimo(); 
 
     /**
      * Creates new form cadastrarFerramentas
@@ -46,8 +47,6 @@ public class cadastrarFerramentas extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtCadastrarCustoF = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        txtQuantidadeDeFerramentas = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtIDFerramentas = new javax.swing.JTextField();
 
@@ -74,14 +73,6 @@ public class cadastrarFerramentas extends javax.swing.JFrame {
             }
         });
 
-        txtQuantidadeDeFerramentas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtQuantidadeDeFerramentasActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("Quantidade");
-
         jLabel5.setText("ID da ferramenta");
 
         txtIDFerramentas.addActionListener(new java.awt.event.ActionListener() {
@@ -95,40 +86,35 @@ public class cadastrarFerramentas extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtIDFerramentas))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtCadastrarMarcaFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel4))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtQuantidadeDeFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtCadastrarCustoF, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtCadastrarNomeFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIDFerramentas))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtCadastrarMarcaFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtCadastrarCustoF, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtCadastrarNomeFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(123, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(132, 132, 132))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
+                .addContainerGap(34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtIDFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -144,13 +130,9 @@ public class cadastrarFerramentas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtCadastrarCustoF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtQuantidadeDeFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(33, 33, 33)
+                .addGap(56, 56, 56)
                 .addComponent(jButton1)
-                .addGap(49, 49, 49))
+                .addGap(63, 63, 63))
         );
 
         pack();
@@ -163,8 +145,7 @@ try {
      int id = Integer.parseInt(txtIDFerramentas.getText());
         String nome = txtCadastrarNomeFerramenta.getText();
         String marca = txtCadastrarMarcaFerramenta.getText();
-        double custo = Double.parseDouble(txtCadastrarCustoF.getText());
-        int quantidade = Integer.parseInt(txtQuantidadeDeFerramentas.getText()); 
+        double custo = Double.parseDouble(txtCadastrarCustoF.getText()); 
 
         if (id < 0) {
             throw new Exception("ID da ferramenta deve ser um número positivo.");
@@ -186,27 +167,24 @@ try {
 
     Ferramentas ferramenta = new Ferramentas(id, nome, marca, custo);
     FerramentasControle ferramentaControle = new FerramentasControle(new FerramentasDAO(connection));
-    ferramentaControle.adicionarFerramenta(ferramenta, quantidade); 
+    ferramentaControle.adicionarFerramenta(ferramenta); 
 
     JOptionPane.showMessageDialog(null, "Ferramenta cadastrada com sucesso.");
 
     txtCadastrarNomeFerramenta.setText("");
     txtCadastrarMarcaFerramenta.setText("");
     txtCadastrarCustoF.setText("");
-    txtQuantidadeDeFerramentas.setText(""); // Limpa o campo de quantidade de ferramentas
+    
+    registroEmprestimo.updateComboFerramentas();
+    
 } catch (Exception e) {
     JOptionPane.showMessageDialog(null, e.getMessage());
 }
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtCadastrarNomeFerramentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCadastrarNomeFerramentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCadastrarNomeFerramentaActionPerformed
-
-    private void txtQuantidadeDeFerramentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeDeFerramentasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtQuantidadeDeFerramentasActionPerformed
 
     private void txtIDFerramentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDFerramentasActionPerformed
         // TODO add your handling code here:
@@ -252,12 +230,10 @@ try {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField txtCadastrarCustoF;
     private javax.swing.JTextField txtCadastrarMarcaFerramenta;
     private javax.swing.JTextField txtCadastrarNomeFerramenta;
     private javax.swing.JTextField txtIDFerramentas;
-    private javax.swing.JTextField txtQuantidadeDeFerramentas;
     // End of variables declaration//GEN-END:variables
 }
