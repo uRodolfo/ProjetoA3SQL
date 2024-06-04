@@ -2,6 +2,17 @@
 
 ---
 
+### Integrantes:
+
+- Gabriel Vasconcellos de Souza (**RA:** 1072419250; @uRodolfo)
+- Heitor José Basso (**RA:** 1072419963; @HeitorJB)
+- Leonardo Coelho Linhar(**RA:** 1072417988; @LeonardoCLinhar)
+- Maria Eduarda Luciano Alves (**RA:** 1072412325; @DudaAlvess)
+- Maria Eduarda Souza dos Santos Ferreira (**RA:** 10724111943; @dudahmesmo)
+- Millena Ferreira Rodrigues (**RA:** 10724112348; @Miaunisul)
+
+---
+
 - 📌 Feito em Java-MVC com Maven
 
 ---
