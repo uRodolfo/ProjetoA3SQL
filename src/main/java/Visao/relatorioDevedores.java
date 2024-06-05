@@ -31,7 +31,6 @@ public class relatorioDevedores extends javax.swing.JFrame {
      */
     public relatorioDevedores() {
         initComponents();
-        atualizarBanco();
     }
 
     /**
