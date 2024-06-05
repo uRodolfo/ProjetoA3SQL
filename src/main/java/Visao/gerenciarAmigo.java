@@ -1,54 +1,32 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Visao;
 
-
-import java.sql.SQLException;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import Modelo.Amigos;
-import Controle.AmigosControle;
-import DAO.AmigosDAO;
-import projetodb.projetoa3sql.Conexao;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.sql.Connection;
-import projetodb.projetoa3sql.Conexao;
-import Modelo.Amigos;
-import javax.swing.JTextField; 
-import Controle.AmigosControle;
-import DAO.AmigosDAO;
-import projetodb.projetoa3sql.Conexao;
-import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import Controle.AmigosControle;
+import DAO.AmigosDAO;
+import projetodb.projetoa3sql.Conexao;
 
 public class gerenciarAmigo extends javax.swing.JFrame {
 
     private AmigosControle amigosControle;
     private Connection conexao;
-private int idUsuario;
 
     public gerenciarAmigo() {
         initComponents();
         conectarBanco();
         this.amigosControle = new AmigosControle(new AmigosDAO(conexao));
+        atualizarTabela();
     }
-  
-
 
     private void conectarBanco() {
         try {
             conexao = Conexao.conectar();
             System.out.println("Conexão com o banco de dados estabelecida.");
         } catch (SQLException ex) {
-            Logger.getLogger(cadastrarAmigo.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados: " + ex.getMessage());
         }
     }
@@ -156,43 +134,43 @@ private int idUsuario;
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonExcluirAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirAmigoActionPerformed
-        // TODO add your handling code here:
-       new excluirAmigo().setVisible(true);
+         int rowIndex = TabelaAmigos.getSelectedRow();
+        if (rowIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um amigo para excluir.");
+            return;
+        }
+        int idAmigo = (int) TabelaAmigos.getValueAt(rowIndex, 0);
+        try {
+            amigosControle.deletarAmigo(idAmigo);
+            JOptionPane.showMessageDialog(this, "Amigo excluído com sucesso.");
+            atualizarTabela();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir o amigo: " + ex.getMessage());
+        }
     }//GEN-LAST:event_buttonExcluirAmigoActionPerformed
 
     private void autualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBDActionPerformed
           
-        String sql = "SELECT * FROM amigos";
-    try {
-        // Conectar ao banco de dados
-        Connection con = Conexao.conectar();
-        
-        // Preparar a consulta SQL
-        PreparedStatement pst = con.prepareStatement(sql);
-        
-        // Executar a consulta
-        ResultSet rs = pst.executeQuery();
-        
-        // Obter o modelo da tabela
-        DefaultTableModel model = (DefaultTableModel) TabelaAmigos.getModel();
-        
-        // Limpar os dados existentes na tabela
-        model.setRowCount(0);
-        
-        // Preencher a tabela com os resultados da consulta
-        while (rs.next()) {
-            model.addRow(new Object[]{rs.getInt("id_usuario"), rs.getString("nome_usuario"), rs.getString("telefone_usuario")});
-        }
-        
-        // Fechar a conexão
-        con.close();
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Erro ao atualizar a tabela de amigos: " + ex.getMessage());
-    }
+      atualizarTabela();
+                                                      
 
+        
     }//GEN-LAST:event_autualizarBDActionPerformed
     
-   
+   private void atualizarTabela() {
+        String sql = "SELECT * FROM amigos";
+        try {
+            PreparedStatement pst = conexao.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            DefaultTableModel model = (DefaultTableModel) TabelaAmigos.getModel();
+            model.setRowCount(0);
+            while (rs.next()) {
+                model.addRow(new Object[]{rs.getInt("id_amigo"), rs.getString("nome_usuario"), rs.getString("telefone_usuario")});
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Este amigo tem emprestimos pendentes");
+        }
+    }
     
     /**
      * @param args the command line arguments

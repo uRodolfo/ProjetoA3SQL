@@ -21,31 +21,40 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import javax.swing.JComboBox;
-
-
+import DAO.FerramentasDAO;
+import Modelo.Ferramentas;
 /**
  * Registro de Empréstimo
  * Autor: Maria
  */
 public class registroEmprestimo extends javax.swing.JFrame {
-    private Connection conexao;
+   private Connection conexao;
     private AmigosControle amigoControle;
     private JTextField JTFAmigo; // Declare JTFAmigo as a class-level variable
     private JTextField JTFFerramenta;
-    
-    public registroEmprestimo() {
+    private AmigosDAO amigosDAO;
+    private FerramentasDAO ferramentasDAO; // Movido para cá para inicialização posterior
+
+    private EmprestimosDAO emprestimosDAO;
+
+
+
+     public registroEmprestimo() {
         initComponents();
         JTFAmigo = new JTextField(); // Inicialize JTFAmigo aqui
         JTFFerramenta = new JTextField();
+
         try {
             // Obtendo a conexão com o banco de dados
             conexao = Conexao.conectar();
-            
+            amigosDAO = new AmigosDAO(conexao);
             // Inicializando o controle de amigos
             amigoControle = new AmigosControle(new AmigosDAO(conexao));
-            
+            ferramentasDAO = new FerramentasDAO(conexao); // Inicialize ferramentasDAO aqui
+            emprestimosDAO = new EmprestimosDAO(); // Inicialize emprestimosDAO aqui
+
             // Definindo a localização relativa da janela
-            this.setLocationRelativeTo(null); 
+            this.setLocationRelativeTo(null);
 
             // Atualiza a JComboBox ao iniciar a aplicação
             updateCombo();
@@ -415,55 +424,70 @@ public class registroEmprestimo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonRegistrarEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistrarEmprestimoActionPerformed
-     try {
-        // Obter os dados do formulário
-        String amigoSelecionado = (String) itemAmigoRegistro.getSelectedItem();
-        String ferramentaSelecionada = (String) itemFerramenta.getSelectedItem();
-        String dataEmprestimoStr = (String) dataEmprestimo.getText();
+try {
+    // Obter os dados do formulário
+    String amigoSelecionado = (String) itemAmigoRegistro.getSelectedItem();
+    String ferramentaSelecionada = (String) itemFerramenta.getSelectedItem();
+    String dataEmprestimoStr = (String) dataEmprestimo.getText();
 
-        // Verificar se todos os campos foram preenchidos
-        if (amigoSelecionado.isEmpty() || ferramentaSelecionada.isEmpty() || dataEmprestimoStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.");
-            return;
-        }
-
-        // Converter a data de empréstimo para o formato de data do SQL
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date parsedEmprestimoDate = format.parse(dataEmprestimoStr);
-        java.sql.Date sqlDateEmprestimo = new java.sql.Date(parsedEmprestimoDate.getTime());
-
-        // Calcular a data de devolução esperada (7 dias após a data de empréstimo)
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(parsedEmprestimoDate);
-        calendar.add(Calendar.DAY_OF_YEAR, 7);
-        java.sql.Date sqlDateDevolucao = new java.sql.Date(calendar.getTimeInMillis());
-
-        // Verificar se a data atual é posterior à data de devolução esperada
-        Calendar dataAtual = Calendar.getInstance();
-        String statusEmprestimo;
-        if (dataAtual.after(calendar)) {
-            // Se sim, definir o status do empréstimo como atrasado
-            statusEmprestimo = "Atrasado";
-        } else {
-            // Se não, definir o status do empréstimo como em dia
-            statusEmprestimo = "Em dia";
-        }
-
-        // Criar um objeto de Empréstimo com os dados do formulário
-        Emprestimos emprestimo = new Emprestimos(0, getFerramentaId(ferramentaSelecionada), ferramentaSelecionada, sqlDateEmprestimo, sqlDateDevolucao, getUsuarioId(amigoSelecionado), statusEmprestimo);
-
-        // Chamar o método do DAO para registrar o empréstimo
-        EmprestimosDAO.criarEmprestimo(conexao, emprestimo, getUsuarioId(amigoSelecionado));
-
-        // Exibir uma mensagem de sucesso
-        JOptionPane.showMessageDialog(this, "Empréstimo registrado com sucesso.");
-    } catch (ParseException e) {
-        // Em caso de erro de parsing de data, exibir uma mensagem de erro
-        JOptionPane.showMessageDialog(this, "Erro ao converter data: " + e.getMessage());
-    } catch (SQLException e) {
-        // Em caso de erro de SQL, exibir uma mensagem de erro
-        JOptionPane.showMessageDialog(this, "Erro ao registrar empréstimo: " + e.getMessage());
+    // Verificar se todos os campos foram preenchidos
+    if (amigoSelecionado.isEmpty() || ferramentaSelecionada.isEmpty() || dataEmprestimoStr.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.");
+        return;
     }
+
+    // Converter a data de empréstimo para o formato de data do SQL
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    java.util.Date parsedEmprestimoDate = format.parse(dataEmprestimoStr);
+    java.sql.Date sqlDateEmprestimo = new java.sql.Date(parsedEmprestimoDate.getTime());
+
+    // Calcular a data de devolução esperada (7 dias após a data de empréstimo)
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(parsedEmprestimoDate);
+    calendar.add(Calendar.DAY_OF_YEAR, 7);
+    java.sql.Date sqlDateDevolucao = new java.sql.Date(calendar.getTimeInMillis());
+
+    // Verificar se a data atual é posterior à data de devolução esperada
+    Calendar dataAtual = Calendar.getInstance();
+    String statusEmprestimo;
+    if (dataAtual.after(calendar)) {
+        // Se sim, definir o status do empréstimo como atrasado
+        statusEmprestimo = "Atrasado";
+    } else {
+        // Se não, definir o status do empréstimo como em dia
+        statusEmprestimo = "Em dia";
+    }
+
+    // Obter o ID do usuário com base no nome do amigo
+    int idUsuario = amigosDAO.obterIdUsuario(amigoSelecionado);
+
+    // Verificar se o ID do usuário é válido
+    if (idUsuario == -1) {
+        JOptionPane.showMessageDialog(this, "O amigo selecionado não possui um ID válido.");
+        return;
+    }
+
+    // Obter o número de telefone do usuário com base no nome do amigo
+    String telefoneUsuario = amigosDAO.obterTelefoneUsuario(amigoSelecionado);
+
+    // Obter o ID da ferramenta com base no nome da ferramenta
+    int idFerramenta = ferramentasDAO.getFerramentaId(ferramentaSelecionada);
+
+    // Criar um objeto de Empréstimo com os dados do formulário
+    Emprestimos emprestimo = new Emprestimos(0, idFerramenta, ferramentaSelecionada, sqlDateEmprestimo, sqlDateDevolucao, idUsuario, amigoSelecionado, telefoneUsuario, statusEmprestimo);
+
+    // Chamar o método do DAO para registrar o empréstimo
+    emprestimosDAO.criarEmprestimo(conexao, emprestimo, idUsuario);
+
+    // Exibir uma mensagem de sucesso
+    JOptionPane.showMessageDialog(this, "Empréstimo registrado com sucesso.");
+} catch (ParseException e) {
+    // Em caso de erro de parsing de data, exibir uma mensagem de erro
+    JOptionPane.showMessageDialog(this, "Erro ao converter data: " + e.getMessage());
+} catch (SQLException e) {
+    // Em caso de erro de SQL, exibir uma mensagem de erro
+    JOptionPane.showMessageDialog(this, "Erro ao registrar empréstimo: " + e.getMessage());
+}
 
 }
 
@@ -479,20 +503,10 @@ private int getFerramentaId(String nomeFerramenta) throws SQLException {
             throw new SQLException("Ferramenta não encontrada.");
         }
     }
-}
+
 
 // Método auxiliar para obter o ID do usuário pelo nome
-private int getUsuarioId(String nomeUsuario) throws SQLException {
-    String sql = "SELECT id_usuario FROM Usuarios WHERE nome_usuario = ?";
-    try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
-        pstmt.setString(1, nomeUsuario);
-        ResultSet rs = pstmt.executeQuery();
-        if (rs.next()) {
-            return rs.getInt("id_usuario");
-        } else {
-            throw new SQLException("Usuário não encontrado.");
-        }
-    }
+
 
     }//GEN-LAST:event_buttonRegistrarEmprestimoActionPerformed
 
@@ -585,46 +599,47 @@ public void updateCombo() {
 
     private void buttonRegistrarDevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistrarDevolucaoActionPerformed
                                                                                                   
-    try {
-        // Obter o nome do amigo selecionado
-        String amigoSelecionado = (String) itemAmigoDevolucao.getSelectedItem();
-        // Obter o nome da ferramenta selecionada
-        String ferramentaSelecionada = (String) itemFerramentaDevolucao.getSelectedItem();
+  try {
+    // Obter o nome do amigo selecionado
+    String amigoSelecionado = (String) itemAmigoDevolucao.getSelectedItem();
+    // Obter o nome da ferramenta selecionada
+    String ferramentaSelecionada = (String) itemFerramentaDevolucao.getSelectedItem();
 
-        // Verificar se um amigo e uma ferramenta foram selecionados
-        if (amigoSelecionado.isEmpty() || ferramentaSelecionada.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, selecione um amigo e uma ferramenta para devolução.");
-            return;
+    // Verificar se um amigo e uma ferramenta foram selecionados
+    if (amigoSelecionado.isEmpty() || ferramentaSelecionada.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, selecione um amigo e uma ferramenta para devolução.");
+        return;
+    }
+
+    // Obter o ID da ferramenta com base no nome da ferramenta selecionada
+    int idFerramenta = ferramentasDAO.getFerramentaId(ferramentaSelecionada);
+
+    // Obter o ID do usuário com base no nome do amigo selecionado
+    int idUsuario = amigosDAO.obterIdUsuario(amigoSelecionado);
+
+    // Construir a consulta SQL para remover o empréstimo
+    String sql = "UPDATE Emprestimos SET status_emprestimo = 'Devolvido' WHERE id_amigo = ? AND id_ferramenta = ?";
+
+    // Preparar a declaração SQL
+    try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
+        pstmt.setInt(1, idUsuario); // Utilizamos o ID do usuário
+        pstmt.setInt(2, idFerramenta); // Utilizamos o ID da ferramenta
+
+        // Executar a declaração SQL
+        int rowsAffected = pstmt.executeUpdate();
+
+        // Verificar se a devolução foi bem-sucedida
+        if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(this, "Devolução realizada com sucesso.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Não foram encontrados empréstimos para devolução.");
         }
-
-        // Obter o ID do usuário com base no nome do amigo selecionado
-        int idUsuario = getUsuarioId(amigoSelecionado);
-
-        // Obter o ID da ferramenta com base no nome da ferramenta selecionada
-        int idFerramenta = getFerramentaId(ferramentaSelecionada);
-
-        // Construir a consulta SQL para remover o empréstimo
-        String sql = "UPDATE Emprestimos SET status_emprestimo = 'Devolvido' WHERE id_usuario = ? AND id_ferramenta = ?";
-
-        // Preparar a declaração SQL
-        try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
-            pstmt.setInt(1, idUsuario);
-            pstmt.setInt(2, idFerramenta);
-
-            // Executar a declaração SQL
-            int rowsAffected = pstmt.executeUpdate();
-
-            // Verificar se a devolução foi bem-sucedida
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(this, "Devolução realizada com sucesso.");
-            } else {
-                JOptionPane.showMessageDialog(this, "Não foram encontrados empréstimos para devolução.");
-            }
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Erro ao realizar a devolução: " + e.getMessage());
+    }
+} catch (SQLException e) {
+    JOptionPane.showMessageDialog(this, "Erro ao realizar a devolução: " + e.getMessage());
+}
     }//GEN-LAST:event_buttonRegistrarDevolucaoActionPerformed
- }
+ 
     private void itemAmigoDevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAmigoDevolucaoActionPerformed
        String nomeSelecionado = (String) itemAmigoDevolucao.getSelectedItem();
     JTFAmigo.setText(nomeSelecionado);

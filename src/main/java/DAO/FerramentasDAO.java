@@ -30,7 +30,7 @@ public class FerramentasDAO {
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 Ferramentas ferramenta = new Ferramentas(
-                    rs.getInt("id_ferramenta"),
+               
                     rs.getString("nome_ferramenta"),
                     rs.getString("marca_ferramenta"),
                     rs.getDouble("preco")
@@ -59,5 +59,22 @@ public class FerramentasDAO {
             stmt.executeUpdate();
         }
     }
+    
+    public int getFerramentaId(String nomeFerramenta) throws SQLException {
+        int idFerramenta = -1; // Valor padrão caso não encontre o ID
+
+        String sql = "SELECT id_ferramenta FROM ferramentas WHERE nome_ferramenta = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, nomeFerramenta);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    idFerramenta = rs.getInt("id_ferramenta");
+                }
+            }
+        }
+
+        return idFerramenta;
+    }
 }
+
 

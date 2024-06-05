@@ -47,8 +47,6 @@ registroEmprestimo registroEmprestimo = new registroEmprestimo();
         jLabel3 = new javax.swing.JLabel();
         txtCadastrarCustoF = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        txtIDFerramentas = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Ferramentas");
@@ -73,66 +71,50 @@ registroEmprestimo registroEmprestimo = new registroEmprestimo();
             }
         });
 
-        jLabel5.setText("ID da ferramenta");
-
-        txtIDFerramentas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDFerramentasActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIDFerramentas))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtCadastrarMarcaFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtCadastrarCustoF, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtCadastrarNomeFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(123, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(132, 132, 132))
+                        .addGap(49, 49, 49)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCadastrarMarcaFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCadastrarNomeFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCadastrarCustoF, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addComponent(jButton1)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtIDFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCadastrarNomeFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCadastrarMarcaFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtCadastrarCustoF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
+                    .addComponent(jLabel2)
+                    .addComponent(txtCadastrarMarcaFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCadastrarCustoF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(32, 32, 32)
                 .addComponent(jButton1)
-                .addGap(63, 63, 63))
+                .addGap(101, 101, 101))
         );
 
         pack();
@@ -142,30 +124,25 @@ registroEmprestimo registroEmprestimo = new registroEmprestimo();
         Conexao conexao = new Conexao();
 
 try {
-     int id = Integer.parseInt(txtIDFerramentas.getText());
-        String nome = txtCadastrarNomeFerramenta.getText();
-        String marca = txtCadastrarMarcaFerramenta.getText();
-        double custo = Double.parseDouble(txtCadastrarCustoF.getText()); 
+    String nome = txtCadastrarNomeFerramenta.getText();
+    String marca = txtCadastrarMarcaFerramenta.getText();
+    double custo = Double.parseDouble(txtCadastrarCustoF.getText()); 
 
-        if (id < 0) {
-            throw new Exception("ID da ferramenta deve ser um número positivo.");
-        }
+    if (nome.length() < 2) {
+        throw new Exception("Nome da ferramenta deve conter ao menos 2 caracteres.");
+    }
 
-        if (nome.length() < 2) {
-            throw new Exception("Nome da ferramenta deve conter ao menos 2 caracteres.");
-        }
+    if (marca.length() < 2) {
+        throw new Exception("Marca da ferramenta deve conter ao menos 2 caracteres.");
+    }
 
-        if (marca.length() < 2) {
-            throw new Exception("Marca da ferramenta deve conter ao menos 2 caracteres.");
-        }
-
-        if (custo <= 0) {
-            throw new Exception("Custo de aquisição da ferramenta deve ser um valor positivo.");
-        }
+    if (custo <= 0) {
+        throw new Exception("Custo de aquisição da ferramenta deve ser um valor positivo.");
+    }
         
     Connection connection = conexao.conectar();
 
-    Ferramentas ferramenta = new Ferramentas(id, nome, marca, custo);
+    Ferramentas ferramenta = new Ferramentas(nome, marca, custo);
     FerramentasControle ferramentaControle = new FerramentasControle(new FerramentasDAO(connection));
     ferramentaControle.adicionarFerramenta(ferramenta); 
 
@@ -185,10 +162,6 @@ try {
     private void txtCadastrarNomeFerramentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCadastrarNomeFerramentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCadastrarNomeFerramentaActionPerformed
-
-    private void txtIDFerramentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDFerramentasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDFerramentasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,10 +203,8 @@ try {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField txtCadastrarCustoF;
     private javax.swing.JTextField txtCadastrarMarcaFerramenta;
     private javax.swing.JTextField txtCadastrarNomeFerramenta;
-    private javax.swing.JTextField txtIDFerramentas;
     // End of variables declaration//GEN-END:variables
 }

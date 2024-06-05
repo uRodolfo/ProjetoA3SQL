@@ -38,6 +38,7 @@ public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
      */
     public relatorioEmprestimoAtivo() {
         initComponents();
+        atualizarBanco();
     }
 
     /**
@@ -119,16 +120,19 @@ public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void autualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBDActionPerformed
-       try {
+    
+    private void atualizarBanco() {
+     
+     try {
         // 1. Estabelecer conexão com o banco de dados
         Connection conexao = Conexao.conectar();
 
         // 2. Escrever a consulta SQL para selecionar os empréstimos ativos com status "Em dia"
-        String sql = "SELECT e.id_emprestimo, u.nome_usuario AS Amigo, f.nome_ferramenta AS Ferramenta, e.data_emprestimo AS 'Data de Empréstimo', e.data_devolucao_esperada AS 'Devolução Prevista' FROM Emprestimos e " +
-                     "JOIN usuarios u ON e.id_usuario = u.id_usuario " +
-                     "JOIN ferramentas f ON e.id_ferramenta = f.id_ferramenta " +
-                     "WHERE e.status_emprestimo IN ('Em dia', 'Atrasado')";
+        String sql = "SELECT e.id_emprestimo, a.nome_usuario AS Amigo, f.nome_ferramenta AS Ferramenta, e.data_emprestimo AS 'Data de Empréstimo', e.data_devolucao_esperada AS 'Devolução Prevista' FROM Emprestimos e " +
+             "JOIN amigos a ON e.id_amigo = a.id_amigo " +
+             "JOIN ferramentas f ON e.id_ferramenta = f.id_ferramenta " +
+             "WHERE e.status_emprestimo IN ('Em dia', 'Atrasado')";
+
 
 
         // 3. Executar a consulta SQL
@@ -154,6 +158,9 @@ public class relatorioEmprestimoAtivo extends javax.swing.JFrame {
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(this, "Erro ao recuperar dados dos empréstimos ativos: " + e.getMessage());
     }
+ }
+    private void autualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBDActionPerformed
+       atualizarBanco();
 
     }//GEN-LAST:event_autualizarBDActionPerformed
 

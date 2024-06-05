@@ -25,6 +25,7 @@ public class relatorioFerramenta extends javax.swing.JFrame {
     public relatorioFerramenta() {
         initComponents();
         calcularTotalCusto();
+        atualizarBanco();
     }
 
     /**
@@ -114,8 +115,8 @@ public class relatorioFerramenta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AtualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarBDActionPerformed
-      try {
+    private void atualizarBanco() {
+     try {
     // 1. Estabelecer conexão com o banco de dados
     Connection conexao = Conexao.conectar();
 
@@ -146,7 +147,11 @@ public class relatorioFerramenta extends javax.swing.JFrame {
     }
 } catch (SQLException e) {
     JOptionPane.showMessageDialog(this, "Erro ao recuperar dados das ferramentas: " + e.getMessage());
-}
+}   
+    }
+    private void AtualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarBDActionPerformed
+      
+        atualizarBanco();
 
     }//GEN-LAST:event_AtualizarBDActionPerformed
 

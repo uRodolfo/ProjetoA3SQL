@@ -1,5 +1,7 @@
 package Visao;
 
+import Controle.FerramentasControle;
+import DAO.FerramentasDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,10 +13,13 @@ import projetodb.projetoa3sql.Conexao;
 public class gerenciarFerramentas extends javax.swing.JFrame {
 
     private Connection conexao;
+    private FerramentasControle ferramentasControle;
 
     public gerenciarFerramentas() {
         initComponents();
         conectarBanco();
+        ferramentasControle = new FerramentasControle(new FerramentasDAO(conexao));
+        atualizarBanco();
     }
 
     private void conectarBanco() {
@@ -99,7 +104,7 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(237, 237, 237)
+                .addGap(241, 241, 241)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -110,21 +115,32 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
                 .addComponent(autualizarBD)
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        new excluirFerramenta().setVisible(true);
+         int rowIndex = TabelaFerramentas.getSelectedRow();
+        if (rowIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione uma ferramenta para excluir.");
+            return;
+        }
+        int idFerramenta = (int) TabelaFerramentas.getValueAt(rowIndex, 0);
+        try {
+            ferramentasControle.deletarFerramenta(idFerramenta);
+            JOptionPane.showMessageDialog(this, "Ferramenta excluída com sucesso.");
+            atualizarBanco();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir a ferramenta: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void autualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBDActionPerformed
-  String sql = "SELECT * FROM ferramentas";
+    private void atualizarBanco() {
+        String sql = "SELECT * FROM ferramentas";
         try {
             PreparedStatement pst = conexao.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
@@ -139,6 +155,10 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao atualizar a tabela de ferramentas: " + ex.getMessage());
         }
+    }
+    
+    private void autualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBDActionPerformed
+  atualizarBanco();
         
     }//GEN-LAST:event_autualizarBDActionPerformed
 

@@ -12,6 +12,17 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import Controle.AmigosControle;
+import DAO.AmigosDAO;
+import javax.swing.JTextField; 
+import Controle.AmigosControle;
+import DAO.AmigosDAO;
+import projetodb.projetoa3sql.Conexao;
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -21,16 +32,16 @@ public class cadastrarAmigo extends javax.swing.JFrame {
 
   private AmigosControle amigosControle;
   
-    public cadastrarAmigo() {
-           initComponents();
+   public cadastrarAmigo() {
+        initComponents();
         try {
             Connection conexao = Conexao.conectar();
             this.amigosControle = new AmigosControle(new AmigosDAO(conexao));
         } catch (SQLException ex) {
             Logger.getLogger(cadastrarAmigo.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados: " + ex.getMessage());
-        }    
-   }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,8 +57,6 @@ public class cadastrarAmigo extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtCadastrarTelefoneAmigo = new javax.swing.JTextField();
         buttonCadastrarAmigo = new javax.swing.JButton();
-        txtID = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Amigo");
@@ -76,58 +85,42 @@ public class cadastrarAmigo extends javax.swing.JFrame {
             }
         });
 
-        txtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("ID:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(77, 77, 77)
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtCadastrarNomeAmigo, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(71, 71, 71)
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtCadastrarTelefoneAmigo, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCadastrarTelefoneAmigo, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtCadastrarNomeAmigo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(200, 200, 200)
+                        .addGap(196, 196, 196)
                         .addComponent(buttonCadastrarAmigo)))
                 .addContainerGap(122, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtCadastrarNomeAmigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCadastrarNomeAmigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCadastrarTelefoneAmigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
                 .addComponent(buttonCadastrarAmigo)
-                .addGap(24, 24, 24))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
@@ -139,58 +132,36 @@ public class cadastrarAmigo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCadastrarNomeAmigoActionPerformed
 
     private void buttonCadastrarAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarAmigoActionPerformed
-      try {
-        int idUsuario = Integer.parseInt(txtID.getText());
-        String nomeUsuario = txtCadastrarNomeAmigo.getText();
-        String telefoneUsuario = txtCadastrarTelefoneAmigo.getText();
+         String nomeUsuario = txtCadastrarNomeAmigo.getText();
+    String telefoneUsuario = txtCadastrarTelefoneAmigo.getText();
 
-        if (nomeUsuario.length() < 2) {
-            throw new Exception("Nome deve conter ao menos 2 caracteres.");
+    try {
+        // Obtém a conexão com o banco de dados
+        Connection conexao = Conexao.conectar();
+
+        // Executa a consulta SQL para adicionar o amigo
+        String sql = "INSERT INTO amigos (nome_usuario, telefone_usuario) VALUES (?, ?)";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, nomeUsuario);
+            stmt.setString(2, telefoneUsuario);
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Amigo cadastrado com sucesso.");
+                txtCadastrarNomeAmigo.setText("");
+                txtCadastrarTelefoneAmigo.setText("");
+            } else {
+                throw new Exception("Erro ao cadastrar amigo.");
+            }
         }
-
-        if (telefoneUsuario.length() < 6) {
-            throw new Exception("Telefone deve conter ao menos 6 caracteres.");
-        }
-
-        amigosControle.adicionarUsuario(idUsuario, nomeUsuario, telefoneUsuario);
-
-        String nomeAmigo = txtCadastrarNomeAmigo.getText(); 
-        String telefoneAmigo = txtCadastrarTelefoneAmigo.getText(); 
-
-        if (nomeAmigo.length() < 2) {
-            throw new Exception("Nome do amigo deve conter ao menos 2 caracteres.");
-        }
-
-        if (telefoneAmigo.length() < 6) {
-            throw new Exception("Telefone do amigo deve conter ao menos 6 caracteres.");
-        }
-
-        // Cria um amigo com o ID do usuário e o nome e telefone do amigo
-        Amigos amigo = new Amigos(idUsuario, nomeAmigo, telefoneAmigo); 
-        amigosControle.adicionarAmigo(amigo, idUsuario);
-
-        JOptionPane.showMessageDialog(null, "Cadastro de usuário e amigo realizado com sucesso.");
-
-        // Limpa os campos de texto
-        txtID.setText("");
-        txtCadastrarNomeAmigo.setText("");
-        txtCadastrarTelefoneAmigo.setText("");
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "ID do usuário deve ser um número.");
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e.getMessage());
+        JOptionPane.showMessageDialog(null, "Erro ao cadastrar amigo: " + e.getMessage());
     }
-
-
     }//GEN-LAST:event_buttonCadastrarAmigoActionPerformed
 
     private void txtCadastrarTelefoneAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCadastrarTelefoneAmigoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtCadastrarTelefoneAmigoActionPerformed
-
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,9 +202,7 @@ public class cadastrarAmigo extends javax.swing.JFrame {
     private javax.swing.JButton buttonCadastrarAmigo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtCadastrarNomeAmigo;
     private javax.swing.JTextField txtCadastrarTelefoneAmigo;
-    private javax.swing.JTextField txtID;
     // End of variables declaration//GEN-END:variables
 }

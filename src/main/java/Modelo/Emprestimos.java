@@ -1,6 +1,6 @@
 package Modelo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Emprestimos {
     private int idEmprestimo;
@@ -8,19 +8,26 @@ public class Emprestimos {
     private String nomeFerramenta;
     private Date dataEmprestimo;
     private Date dataDevolucaoEsperada;
-    private int idUsuario;
+    private int idAmigo;
+    private String nomeUsuario;
+    private String telefoneUsuario;
     private String statusEmprestimo;
 
-    public Emprestimos(int idEmprestimo, int idFerramenta, String nomeFerramenta, Date dataEmprestimo, Date dataDevolucaoEsperada, int idUsuario, String statusEmprestimo) {
-        this.idEmprestimo = idEmprestimo;
-        this.idFerramenta = idFerramenta;
-        this.nomeFerramenta = nomeFerramenta;
-        this.dataEmprestimo = dataEmprestimo;
-        this.dataDevolucaoEsperada = dataDevolucaoEsperada;
-        this.idUsuario = idUsuario;
-        this.statusEmprestimo = statusEmprestimo;
-    }
+    // Construtor
+    public Emprestimos(int idEmprestimo, int idFerramenta, String nomeFerramenta, Date dataEmprestimo, Date dataDevolucaoEsperada, int idAmigo, String nomeUsuario, String telefoneUsuario, String statusEmprestimo) {
+    this.idEmprestimo = idEmprestimo;
+    this.idFerramenta = idFerramenta;
+    this.nomeFerramenta = nomeFerramenta;
+    this.dataEmprestimo = dataEmprestimo;
+    this.dataDevolucaoEsperada = dataDevolucaoEsperada;
+    this.idAmigo = idAmigo;
+    this.nomeUsuario = nomeUsuario;
+    this.telefoneUsuario = telefoneUsuario;
+    this.statusEmprestimo = statusEmprestimo;
+}
 
+
+    // Getters
     public int getIdEmprestimo() {
         return idEmprestimo;
     }
@@ -41,35 +48,19 @@ public class Emprestimos {
         return dataDevolucaoEsperada;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public int getIdAmigo() {
+        return idAmigo;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public String getTelefoneUsuario() {
+        return telefoneUsuario;
     }
 
     public String getStatusEmprestimo() {
         return statusEmprestimo;
-    }
-
-    public void setIdFerramenta(int idFerramenta) {
-        this.idFerramenta = idFerramenta;
-    }
-
-    public void setNomeFerramenta(String nomeFerramenta) {
-        this.nomeFerramenta = nomeFerramenta;
-    }
-
-    public void setDataEmprestimo(Date dataEmprestimo) {
-        this.dataEmprestimo = dataEmprestimo;
-    }
-
-    public void setDataDevolucaoEsperada(Date dataDevolucaoEsperada) {
-        this.dataDevolucaoEsperada = dataDevolucaoEsperada;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public void setStatusEmprestimo(String statusEmprestimo) {
-        this.statusEmprestimo = statusEmprestimo;
     }
 }

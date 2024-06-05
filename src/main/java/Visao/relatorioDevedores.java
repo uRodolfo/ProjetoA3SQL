@@ -113,17 +113,17 @@ public class relatorioDevedores extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void autualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBDActionPerformed
-try {
+    private void atualizarBanco() {
+    try {
         // 1. Estabelecer conexão com o banco de dados
         Connection conexao = Conexao.conectar();
 
         // 2. Escrever a consulta SQL para selecionar os empréstimos atrasados
-        String sql = "SELECT e.id_emprestimo, u.nome_usuario AS Amigo, f.nome_ferramenta AS Ferramenta, e.data_emprestimo AS 'Data de Empréstimo' " +
-                     "FROM Emprestimos e " +
-                     "JOIN usuarios u ON e.id_usuario = u.id_usuario " +
-                     "JOIN ferramentas f ON e.id_ferramenta = f.id_ferramenta " +
-                     "WHERE e.status_emprestimo = 'Atrasado'";
+        String sql = "SELECT e.id_emprestimo, a.nome_usuario AS Amigo, f.nome_ferramenta AS Ferramenta, e.data_emprestimo AS DataEmprestimo " +
+             "FROM Emprestimos e " +
+             "JOIN amigos a ON e.id_amigo = a.id_amigo " + // Corrigir para referenciar amigos.id_amigo
+             "JOIN ferramentas f ON e.id_ferramenta = f.id_ferramenta " +
+             "WHERE e.status_emprestimo = 'Atrasado'";
 
         // 3. Executar a consulta SQL
         try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
@@ -138,7 +138,7 @@ try {
                 int id = rs.getInt("id_emprestimo");
                 String amigo = rs.getString("Amigo");
                 String ferramenta = rs.getString("Ferramenta");
-                String dataEmprestimo = rs.getString("Data de Empréstimo");
+                String dataEmprestimo = rs.getString("DataEmprestimo");
 
                 Object[] rowData = {id, amigo, ferramenta, dataEmprestimo};
                 model.addRow(rowData);
@@ -147,6 +147,10 @@ try {
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(this, "Erro ao recuperar dados dos empréstimos atrasados: " + e.getMessage());
     }
+}
+    
+    private void autualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBDActionPerformed
+  atualizarBanco();
        
     }//GEN-LAST:event_autualizarBDActionPerformed
 

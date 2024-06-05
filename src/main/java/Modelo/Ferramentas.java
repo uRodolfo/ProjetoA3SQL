@@ -6,12 +6,11 @@ public class Ferramentas {
     private String marca;
     private double custo;
 
-    public Ferramentas(int id, String nome, String marca, double custo) {
-        this.id = id;
-        this.nome = nome;
-        this.marca = marca;
-        this.custo = custo;
-    }
+    public Ferramentas(String nome, String marca, double custo) {
+    this.nome = nome;
+    this.marca = marca;
+    this.custo = custo;
+}
 
     // Getters e setters
     public int getId() {

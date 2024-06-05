@@ -12,24 +12,23 @@ public class AmigosControle {
         this.amigoDAO = amigoDAO;
     }
 
-    public void adicionarAmigo(Amigos amigo, int idUsuario) throws SQLException {
-        amigoDAO.adicionarAmigo(amigo, idUsuario);
+    public void adicionarAmigo(String nomeAmigo, String telefoneAmigo) throws SQLException {
+        amigoDAO.adicionarAmigo(nomeAmigo, telefoneAmigo);
     }
 
-    public List<Amigos> listarAmigos(int idUsuario) throws SQLException {
-        return amigoDAO.listarAmigos(idUsuario);
+    public List<Amigos> listarAmigos() throws SQLException {
+        return amigoDAO.listarAmigos();
     }
 
     public void atualizarAmigo(Amigos amigo) throws SQLException {
         amigoDAO.atualizarAmigo(amigo);
     }
 
-    // Atualizado para aceitar id e nomeUsuario
-    public void deletarAmigo(int id, String nomeUsuario) throws SQLException {
-        amigoDAO.deletarAmigo(id, nomeUsuario);
+    public void deletarAmigo(int idUsuario) throws SQLException {
+        amigoDAO.deletarAmigo(idUsuario);
     }
 
-    public void adicionarUsuario(int idUsuario, String nomeUsuario, String telefoneUsuario) throws SQLException {
-        amigoDAO.adicionarUsuario(idUsuario, nomeUsuario, telefoneUsuario);
+    public int obterIdUsuario(String nomeUsuario) throws SQLException {
+        return amigoDAO.obterIdUsuario(nomeUsuario);
     }
 }
