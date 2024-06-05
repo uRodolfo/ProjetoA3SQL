@@ -53,12 +53,24 @@ public class FerramentasDAO {
     }
 
     public void deletarFerramenta(int id) throws SQLException {
-        String sql = "DELETE FROM ferramentas WHERE id_ferramenta = ?";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
+    // Verificar empréstimos pendentes
+    String sqlVerificarEmprestimos = "SELECT * FROM emprestimos WHERE id_ferramenta = ? AND status_emprestimo != 'Devolvido'";
+    try (PreparedStatement stmtEmprestimos = conexao.prepareStatement(sqlVerificarEmprestimos)) {
+        stmtEmprestimos.setInt(1, id);
+        try (ResultSet rsEmprestimos = stmtEmprestimos.executeQuery()) {
+            if (rsEmprestimos.next()) {
+                throw new SQLException("A ferramenta possui empréstimos pendentes e não pode ser deletada.");
+            }
         }
     }
+
+    // Excluir a ferramenta
+    String sqlExcluirFerramenta = "DELETE FROM ferramentas WHERE id_ferramenta = ?";
+    try (PreparedStatement stmtExcluir = conexao.prepareStatement(sqlExcluirFerramenta)) {
+        stmtExcluir.setInt(1, id);
+        stmtExcluir.executeUpdate();
+    }
+}
     
     public int getFerramentaId(String nomeFerramenta) throws SQLException {
         int idFerramenta = -1; // Valor padrão caso não encontre o ID

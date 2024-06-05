@@ -52,12 +52,24 @@ public class AmigosDAO {
     }
 
     public void deletarAmigo(int idUsuario) throws SQLException {
-        String sql = "DELETE FROM amigos WHERE id_amigo = ?";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, idUsuario);
-            stmt.executeUpdate();
+    // Verificar empréstimos pendentes
+    String sqlVerificarEmprestimos = "SELECT * FROM emprestimos WHERE id_amigo = ? AND status_emprestimo != 'Devolvido'";
+    try (PreparedStatement stmtEmprestimos = conexao.prepareStatement(sqlVerificarEmprestimos)) {
+        stmtEmprestimos.setInt(1, idUsuario);
+        try (ResultSet rsEmprestimos = stmtEmprestimos.executeQuery()) {
+            if (rsEmprestimos.next()) {
+                throw new SQLException("O amigo possui empréstimos pendentes e não pode ser deletado.");
+            }
         }
     }
+
+    // Excluir o amigo
+    String sqlExcluirAmigo = "DELETE FROM amigos WHERE id_amigo = ?";
+    try (PreparedStatement stmtExcluir = conexao.prepareStatement(sqlExcluirAmigo)) {
+        stmtExcluir.setInt(1, idUsuario);
+        stmtExcluir.executeUpdate();
+    }
+}
 
     // Método para obter o ID do usuário com base no nome do usuário
     public int obterIdUsuario(String nomeUsuario) throws SQLException {
