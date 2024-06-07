@@ -1,3 +1,7 @@
+--Nome do banco de dados: standard
+--Usuario: root
+--senha: root
+
 CREATE TABLE amigos (
     id_amigo INT AUTO_INCREMENT PRIMARY KEY,
     nome_usuario VARCHAR(100) NOT NULL,
