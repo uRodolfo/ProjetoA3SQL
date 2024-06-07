@@ -12,19 +12,19 @@ import projetodb.projetoa3sql.Conexao;
 
 public class gerenciarAmigo extends javax.swing.JFrame {
 
-    private AmigosControle amigosControle;
-    private Connection conexao;
+    private AmigosControle amigosControle; // Controle de amigos
+    private Connection conexao; // Conexão com o banco de dados
 
     public gerenciarAmigo() {
-        initComponents();
-        conectarBanco();
-        this.amigosControle = new AmigosControle(new AmigosDAO(conexao));
-        atualizarTabela();
+        initComponents(); // Inicializa os componentes da interface gráfica
+        conectarBanco(); // Conecta ao banco de dados
+        this.amigosControle = new AmigosControle(new AmigosDAO(conexao)); // Inicializa o controle de amigos
+        atualizarTabela(); // Atualiza a tabela de amigos
     }
 
     private void conectarBanco() {
         try {
-            conexao = Conexao.conectar();
+            conexao = Conexao.conectar(); // Estabelece a conexão com o banco de dados
             System.out.println("Conexão com o banco de dados estabelecida.");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados: " + ex.getMessage());
@@ -134,23 +134,32 @@ public class gerenciarAmigo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonExcluirAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirAmigoActionPerformed
-         int rowIndex = TabelaAmigos.getSelectedRow();
+        // Obtém o índice da linha selecionada na tabela
+        int rowIndex = TabelaAmigos.getSelectedRow();
         if (rowIndex == -1) {
+            // Exibe uma mensagem se nenhuma linha estiver selecionada
             JOptionPane.showMessageDialog(this, "Selecione um amigo para excluir.");
             return;
         }
+        // Obtém o ID do amigo da linha selecionada
         int idAmigo = (int) TabelaAmigos.getValueAt(rowIndex, 0);
         try {
+            // Tenta excluir o amigo através do controle
             amigosControle.deletarAmigo(idAmigo);
+            // Exibe uma mensagem de sucesso
             JOptionPane.showMessageDialog(this, "Amigo excluído com sucesso.");
+            // Atualiza a tabela de amigos
             atualizarTabela();
         } catch (SQLException ex) {
+            // Exibe uma mensagem de erro se ocorrer uma exceção
             JOptionPane.showMessageDialog(this, "Erro ao excluir o amigo: " + ex.getMessage());
         }
     }//GEN-LAST:event_buttonExcluirAmigoActionPerformed
 
     private void autualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBDActionPerformed
-          
+           
+
+      // Atualiza a tabela de amigos
       atualizarTabela();
                                                       
 
@@ -158,17 +167,19 @@ public class gerenciarAmigo extends javax.swing.JFrame {
     }//GEN-LAST:event_autualizarBDActionPerformed
     
    private void atualizarTabela() {
-        String sql = "SELECT * FROM amigos";
+       String sql = "SELECT * FROM amigos"; // Consulta SQL para selecionar todos os amigos
         try {
-            PreparedStatement pst = conexao.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-            DefaultTableModel model = (DefaultTableModel) TabelaAmigos.getModel();
-            model.setRowCount(0);
+            PreparedStatement pst = conexao.prepareStatement(sql); // Prepara a consulta
+            ResultSet rs = pst.executeQuery(); // Executa a consulta e obtém os resultados
+            DefaultTableModel model = (DefaultTableModel) TabelaAmigos.getModel(); // Obtém o modelo da tabela
+            model.setRowCount(0); // Limpa a tabela
             while (rs.next()) {
+                // Adiciona cada linha de resultados na tabela
                 model.addRow(new Object[]{rs.getInt("id_amigo"), rs.getString("nome_usuario"), rs.getString("telefone_usuario")});
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Este amigo tem emprestimos pendentes");
+            // Exibe uma mensagem de erro se ocorrer uma exceção
+            JOptionPane.showMessageDialog(this, "Erro ao atualizar a tabela de amigos: " + ex.getMessage());
         }
     }
     

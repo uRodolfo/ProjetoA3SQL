@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Visao;
+
 import Modelo.Ferramentas;
 import DAO.FerramentasDAO;
 import Controle.FerramentasControle;
@@ -12,23 +13,21 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JOptionPane; 
-import javax.swing.JOptionPane;
 import Visao.registroEmprestimo;
 
-
 /**
- *
- * @author maria
+ * Classe para cadastrar ferramentas
+ * Esta classe representa a interface gráfica para cadastrar novas ferramentas
  */
 public class cadastrarFerramentas extends javax.swing.JFrame {
-registroEmprestimo registroEmprestimo = new registroEmprestimo(); 
+    registroEmprestimo registroEmprestimo = new registroEmprestimo(); // Referência à tela de registro de empréstimo
 
     /**
-     * Creates new form cadastrarFerramentas
+     * Construtor da classe cadastrarFerramentas
+     * Inicializa os componentes da interface gráfica
      */
     public cadastrarFerramentas() {
-        initComponents();
+        initComponents(); // Inicializa os componentes da interface gráfica
     }
 
     /**
@@ -120,43 +119,51 @@ registroEmprestimo registroEmprestimo = new registroEmprestimo();
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Construtor da classe cadastrarFerramentas
+     * Inicializa os componentes da interface gráfica
+     */
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Conexao conexao = new Conexao();
 
-try {
-    String nome = txtCadastrarNomeFerramenta.getText();
-    String marca = txtCadastrarMarcaFerramenta.getText();
-    double custo = Double.parseDouble(txtCadastrarCustoF.getText()); 
+ try {
+        // Coleta os dados inseridos pelo usuário
+        String nome = txtCadastrarNomeFerramenta.getText();
+        String marca = txtCadastrarMarcaFerramenta.getText();
+        double custo = Double.parseDouble(txtCadastrarCustoF.getText()); 
 
-    if (nome.length() < 2) {
-        throw new Exception("Nome da ferramenta deve conter ao menos 2 caracteres.");
-    }
+        // Validações dos campos
+        if (nome.length() < 2) {
+            throw new Exception("Nome da ferramenta deve conter ao menos 2 caracteres.");
+        }
 
-    if (marca.length() < 2) {
-        throw new Exception("Marca da ferramenta deve conter ao menos 2 caracteres.");
-    }
+        if (marca.length() < 2) {
+            throw new Exception("Marca da ferramenta deve conter ao menos 2 caracteres.");
+        }
 
-    if (custo <= 0) {
-        throw new Exception("Custo de aquisição da ferramenta deve ser um valor positivo.");
-    }
+        if (custo <= 0) {
+            throw new Exception("Custo de aquisição da ferramenta deve ser um valor positivo.");
+        }
         
-    Connection connection = conexao.conectar();
+        Connection connection = conexao.conectar(); // Estabelece a conexão com o banco de dados
 
-    Ferramentas ferramenta = new Ferramentas(nome, marca, custo);
-    FerramentasControle ferramentaControle = new FerramentasControle(new FerramentasDAO(connection));
-    ferramentaControle.adicionarFerramenta(ferramenta); 
+        Ferramentas ferramenta = new Ferramentas(nome, marca, custo); // Cria uma nova instância de Ferramentas
+        FerramentasControle ferramentaControle = new FerramentasControle(new FerramentasDAO(connection)); // Inicializa o controle de ferramentas
+        ferramentaControle.adicionarFerramenta(ferramenta); // Adiciona a nova ferramenta no banco de dados
 
-    JOptionPane.showMessageDialog(null, "Ferramenta cadastrada com sucesso.");
+        JOptionPane.showMessageDialog(null, "Ferramenta cadastrada com sucesso."); // Exibe mensagem de sucesso
 
-    txtCadastrarNomeFerramenta.setText("");
-    txtCadastrarMarcaFerramenta.setText("");
-    txtCadastrarCustoF.setText("");
-    
-    registroEmprestimo.updateComboFerramentas();
-    
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(null, e.getMessage());
-}
+        // Limpa os campos de entrada após o cadastro
+        txtCadastrarNomeFerramenta.setText("");
+        txtCadastrarMarcaFerramenta.setText("");
+        txtCadastrarCustoF.setText("");
+        
+        registroEmprestimo.updateComboFerramentas(); // Atualiza o combo box de ferramentas na tela de registro de empréstimo
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e.getMessage()); // Exibe mensagem de erro caso ocorra alguma exceção
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtCadastrarNomeFerramentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCadastrarNomeFerramentaActionPerformed

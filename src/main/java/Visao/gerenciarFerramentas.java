@@ -12,19 +12,20 @@ import projetodb.projetoa3sql.Conexao;
 
 public class gerenciarFerramentas extends javax.swing.JFrame {
 
-    private Connection conexao;
-    private FerramentasControle ferramentasControle;
+    private Connection conexao; // Conexão com o banco de dados
+    private FerramentasControle ferramentasControle; // Controle de ferramentas
 
     public gerenciarFerramentas() {
-        initComponents();
-        conectarBanco();
-        ferramentasControle = new FerramentasControle(new FerramentasDAO(conexao));
-        atualizarBanco();
+        initComponents(); // Inicializa os componentes da interface gráfica
+        conectarBanco(); // Conecta ao banco de dados
+        ferramentasControle = new FerramentasControle(new FerramentasDAO(conexao)); // Inicializa o controle de ferramentas
+        atualizarBanco(); // Atualiza a tabela de ferramentas com os dados do banco
     }
 
+    // Método para conectar ao banco de dados
     private void conectarBanco() {
         try {
-            conexao = Conexao.conectar();
+            conexao = Conexao.conectar(); // Estabelece a conexão
             System.out.println("Conexão com o banco de dados estabelecida.");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados: " + ex.getMessage());
@@ -122,7 +123,9 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+ 
 
+// Ação do botão para excluir uma ferramenta selecionada
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          int rowIndex = TabelaFerramentas.getSelectedRow();
         if (rowIndex == -1) {
@@ -138,6 +141,8 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro ao excluir a ferramenta: " + ex.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+   
+    // Método para atualizar a tabela de ferramentas com os dados do banco de dados
 
     private void atualizarBanco() {
         String sql = "SELECT * FROM ferramentas";
@@ -151,13 +156,15 @@ public class gerenciarFerramentas extends javax.swing.JFrame {
                 model.addRow(new Object[]{rs.getInt("id_ferramenta"), rs.getString("nome_ferramenta"), rs.getString("marca_ferramenta"), rs.getDouble("preco")});
             }
 
-            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao atualizar a tabela de ferramentas: " + ex.getMessage());
         }
     }
     
+    
+
     private void autualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBDActionPerformed
+  // Ação do botão para atualizar o banco de dados
   atualizarBanco();
         
     }//GEN-LAST:event_autualizarBDActionPerformed

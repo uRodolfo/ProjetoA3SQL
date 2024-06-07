@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Visao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,18 +11,20 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import projetodb.projetoa3sql.Conexao;
+
 /**
- *
- * @author maria
+ * Classe para exibir o relatório de histórico de empréstimos
+ * Esta classe representa a interface gráfica para visualizar e atualizar o histórico de empréstimos
  */
 public class relatorioHistoricoEmprestimo extends javax.swing.JFrame {
 
     /**
-     * Creates new form relatorioHistoricoEmprestimo
+     * Cria uma nova instância da classe relatorioHistoricoEmprestimo
+     * Inicializa os componentes da interface gráfica e atualiza os dados do banco
      */
     public relatorioHistoricoEmprestimo() {
-        initComponents();
-        atualizarBanco();
+        initComponents(); // Inicializa os componentes da interface gráfica
+        atualizarBanco(); // Atualiza a tabela com os dados do banco
     }
 
     /**
@@ -104,41 +107,41 @@ public class relatorioHistoricoEmprestimo extends javax.swing.JFrame {
 
     
     private void atualizarBanco() {
-     try {
-    // 1. Estabelecer conexão com o banco de dados
-    Connection conexao = Conexao.conectar();
+       try {
+            // 1. Estabelecer conexão com o banco de dados
+            Connection conexao = Conexao.conectar();
 
-    // 2. Escrever a consulta SQL para selecionar os empréstimos ativos com informações adicionais
-    String sql = "SELECT e.id_emprestimo, a.nome_usuario, a.telefone_usuario, f.nome_ferramenta, f.marca_ferramenta, f.preco, e.data_emprestimo, e.data_devolucao_esperada, e.status_emprestimo FROM Emprestimos e JOIN amigos a ON e.id_amigo = a.id_amigo JOIN ferramentas f ON e.id_ferramenta = f.id_ferramenta";
+            // 2. Escrever a consulta SQL para selecionar os empréstimos ativos com informações adicionais
+            String sql = "SELECT e.id_emprestimo, a.nome_usuario, a.telefone_usuario, f.nome_ferramenta, f.marca_ferramenta, f.preco, e.data_emprestimo, e.data_devolucao_esperada, e.status_emprestimo FROM Emprestimos e JOIN amigos a ON e.id_amigo = a.id_amigo JOIN ferramentas f ON e.id_ferramenta = f.id_ferramenta";
 
-    // 3. Executar a consulta SQL
-    try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
-        ResultSet rs = pstmt.executeQuery();
+            // 3. Executar a consulta SQL
+            try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
+                ResultSet rs = pstmt.executeQuery();
 
-        // Limpar a tabela antes de adicionar novos dados
-        DefaultTableModel model = (DefaultTableModel) tableEmprestimosAtivos.getModel();
-        model.setRowCount(0);
+                // Limpar a tabela antes de adicionar novos dados
+                DefaultTableModel model = (DefaultTableModel) tableEmprestimosAtivos.getModel();
+                model.setRowCount(0);
 
-        // Processar os resultados e preencher a tabela de empréstimos ativos
-        while (rs.next()) {
-            int id = rs.getInt("id_emprestimo");
-            String nomeUsuario = rs.getString("nome_usuario");
-            String telefoneUsuario = rs.getString("telefone_usuario");
-            String nomeFerramenta = rs.getString("nome_ferramenta");
-            String marcaFerramenta = rs.getString("marca_ferramenta");
-            double preco = rs.getDouble("preco");
-            String dataEmprestimo = rs.getString("data_emprestimo");
-            String dataDevolucaoEsperada = rs.getString("data_devolucao_esperada");
-            String statusEmprestimo = rs.getString("status_emprestimo");
+                // Processar os resultados e preencher a tabela de empréstimos ativos
+                while (rs.next()) {
+                    int id = rs.getInt("id_emprestimo");
+                    String nomeUsuario = rs.getString("nome_usuario");
+                    String telefoneUsuario = rs.getString("telefone_usuario");
+                    String nomeFerramenta = rs.getString("nome_ferramenta");
+                    String marcaFerramenta = rs.getString("marca_ferramenta");
+                    double preco = rs.getDouble("preco");
+                    String dataEmprestimo = rs.getString("data_emprestimo");
+                    String dataDevolucaoEsperada = rs.getString("data_devolucao_esperada");
+                    String statusEmprestimo = rs.getString("status_emprestimo");
 
-            Object[] rowData = {id, nomeUsuario, telefoneUsuario, nomeFerramenta, marcaFerramenta, preco, dataEmprestimo, dataDevolucaoEsperada, statusEmprestimo};
-            model.addRow(rowData);
+                    // Adiciona a linha de dados na tabela
+                    Object[] rowData = {id, nomeUsuario, telefoneUsuario, nomeFerramenta, marcaFerramenta, preco, dataEmprestimo, dataDevolucaoEsperada, statusEmprestimo};
+                    model.addRow(rowData);
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao recuperar dados dos empréstimos ativos: " + e.getMessage()); // Exibe mensagem de erro
         }
-    }
-} catch (SQLException e) {
-    JOptionPane.showMessageDialog(this, "Erro ao recuperar dados dos empréstimos ativos: " + e.getMessage());
-}   
-        
     }
     private void autualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autualizarBDActionPerformed
  atualizarBanco();

@@ -30,16 +30,20 @@ import java.sql.SQLException;
  */
 public class cadastrarAmigo extends javax.swing.JFrame {
 
-  private AmigosControle amigosControle;
-  
-   public cadastrarAmigo() {
-        initComponents();
+    private AmigosControle amigosControle; // Controle de amigos
+
+    /**
+     * Construtor da classe cadastrarAmigo
+     * Inicializa os componentes da interface gráfica e conecta ao banco de dados
+     */
+    public cadastrarAmigo() {
+        initComponents(); // Inicializa os componentes da interface gráfica
         try {
-            Connection conexao = Conexao.conectar();
-            this.amigosControle = new AmigosControle(new AmigosDAO(conexao));
+            Connection conexao = Conexao.conectar(); // Estabelece a conexão com o banco de dados
+            this.amigosControle = new AmigosControle(new AmigosDAO(conexao)); // Inicializa o controle de amigos
         } catch (SQLException ex) {
             Logger.getLogger(cadastrarAmigo.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados: " + ex.getMessage()); // Exibe mensagem de erro
         }
     }
 
@@ -132,31 +136,31 @@ public class cadastrarAmigo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCadastrarNomeAmigoActionPerformed
 
     private void buttonCadastrarAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarAmigoActionPerformed
-         String nomeUsuario = txtCadastrarNomeAmigo.getText();
-    String telefoneUsuario = txtCadastrarTelefoneAmigo.getText();
+           String nomeUsuario = txtCadastrarNomeAmigo.getText(); // Coleta o nome do amigo
+        String telefoneUsuario = txtCadastrarTelefoneAmigo.getText(); // Coleta o telefone do amigo
 
-    try {
-        // Obtém a conexão com o banco de dados
-        Connection conexao = Conexao.conectar();
+        try {
+            // Obtém a conexão com o banco de dados
+            Connection conexao = Conexao.conectar();
 
-        // Executa a consulta SQL para adicionar o amigo
-        String sql = "INSERT INTO amigos (nome_usuario, telefone_usuario) VALUES (?, ?)";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setString(1, nomeUsuario);
-            stmt.setString(2, telefoneUsuario);
-            int rowsAffected = stmt.executeUpdate();
+            // Executa a consulta SQL para adicionar o amigo
+            String sql = "INSERT INTO amigos (nome_usuario, telefone_usuario) VALUES (?, ?)";
+            try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+                stmt.setString(1, nomeUsuario);
+                stmt.setString(2, telefoneUsuario);
+                int rowsAffected = stmt.executeUpdate();
 
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(null, "Amigo cadastrado com sucesso.");
-                txtCadastrarNomeAmigo.setText("");
-                txtCadastrarTelefoneAmigo.setText("");
-            } else {
-                throw new Exception("Erro ao cadastrar amigo.");
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "Amigo cadastrado com sucesso."); // Exibe mensagem de sucesso
+                    txtCadastrarNomeAmigo.setText(""); // Limpa o campo de nome
+                    txtCadastrarTelefoneAmigo.setText(""); // Limpa o campo de telefone
+                } else {
+                    throw new Exception("Erro ao cadastrar amigo.");
+                }
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar amigo: " + e.getMessage()); // Exibe mensagem de erro
         }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Erro ao cadastrar amigo: " + e.getMessage());
-    }
     }//GEN-LAST:event_buttonCadastrarAmigoActionPerformed
 
     private void txtCadastrarTelefoneAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCadastrarTelefoneAmigoActionPerformed
