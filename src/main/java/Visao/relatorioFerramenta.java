@@ -14,7 +14,10 @@ import javax.swing.table.DefaultTableModel;
 import projetodb.projetoa3sql.Conexao;
 
 /**
- *
+ * Esta classe representa a interface gráfica para exibir o relatório de ferramentas.
+ * Ela é responsável por recuperar os dados das ferramentas do banco de dados e exibi-los em uma tabela.
+ * Além disso, ela também calcula o custo total das ferramentas e o exibe na interface.
+ * 
  * @author maria
  */
 public class relatorioFerramenta extends javax.swing.JFrame {
@@ -24,8 +27,8 @@ public class relatorioFerramenta extends javax.swing.JFrame {
      */
     public relatorioFerramenta() {
         initComponents();
-        calcularTotalCusto();
-        atualizarBanco();
+        calcularTotalCusto(); // Inicialmente calcula o custo total das ferramentas
+        atualizarBanco(); // Atualiza os dados da tabela de ferramentas
     }
 
     /**
@@ -147,7 +150,7 @@ public class relatorioFerramenta extends javax.swing.JFrame {
     }
 } catch (SQLException e) {
     JOptionPane.showMessageDialog(this, "Erro ao recuperar dados das ferramentas: " + e.getMessage());
-}   
+}    
     }
     private void AtualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarBDActionPerformed
       
@@ -192,19 +195,20 @@ public class relatorioFerramenta extends javax.swing.JFrame {
 
     private void calcularTotalCusto() {
         DefaultTableModel model = (DefaultTableModel) toolsTable.getModel();
-        double totalCost = 0;
-        
-        for (int i = 0; i < model.getRowCount(); i++) {
-            Object costValue = model.getValueAt(i, 3);
-            if (costValue != null) {
-                // Converte o valor para Double se necessário
-                try {
-                    totalCost += Double.parseDouble(costValue.toString());
-                } catch (NumberFormatException e) {
-                    // Trate a exceção se o valor não puder ser convertido
-                    System.err.println("Valor de custo inválido na linha " + (i + 1));
-                }
-            }
+double totalCost = 0;
+
+// Itera sobre cada linha da tabela para calcular o custo total
+for (int i = 0; i < model.getRowCount(); i++) {
+    Object costValue = model.getValueAt(i, 3); // Obtém o valor do custo na coluna 3 (índice 2)
+    if (costValue != null) {
+        // Converte o valor para Double se necessário
+        try {
+            totalCost += Double.parseDouble(costValue.toString()); // Adiciona o custo convertido ao total
+        } catch (NumberFormatException e) {
+            // Trate a exceção se o valor não puder ser convertido
+            System.err.println("Valor de custo inválido na linha " + (i + 1));
+        }
+    }
         }
         
         totalCostLabel.setText("Total de Custo: R$ " + String.format("%.2f", totalCost));
