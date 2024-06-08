@@ -98,7 +98,7 @@ Este projeto é um software para gerenciar o empréstimo de ferramentas, desenvo
 4. Siga as instruções na interface do usuário para cadastrar ferramentas e amigos, registrar empréstimos e gerar relatórios.
 
 ### Configurações do Banco de Dados
-
+- Banco: standard
 - Usuário: root
 - Senha: root
 
