@@ -39,7 +39,6 @@ Este projeto é um software para gerenciar o empréstimo de ferramentas, desenvo
 - Relatório de ferramentas cadastradas e total de custo de aquisição
 - Relatório de empréstimos ativos
 - Relatório de todos os empréstimos realizados
-- Identificação do amigo que fez mais empréstimos
 - Identificação de amigos que nunca devolveram ferramentas
 - Alerta de empréstimos não devolvidos ao registrar um novo empréstimo
 
@@ -61,9 +60,9 @@ Este projeto é um software para gerenciar o empréstimo de ferramentas, desenvo
 
 **RF06** - O sistema deve notificar se um amigo ainda tem ferramentas não devolvidas ao realizar um novo empréstimo para esse amigo.
 
-**RF07** - O sistema deve integrar-se com a Google Agenda para registrar convites de amigos para eventos, enviando lembretes por e-mail.
+**RF07** - O sistema deve permitir a exclusão de ferramentas e amigos cadastrados.
 
-**RF08** - O sistema deve permitir a edição e exclusão de ferramentas e amigos cadastrados.
+**RF08** - O sistema deve gerar automaticamente a data de devolução de uma ferramenta, que será definida como 7 dias após a data de empréstimo.
 
 ### Requisitos Não Funcionais
 
